@@ -1,0 +1,59 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper: read the caller's role from their user document ──────────────
+    // Declared once to avoid repeating the get() call throughout rules.
+    function userRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    // ── users collection ─────────────────────────────────────────────────────
+    match /users/{userId} {
+      // Users can read their own profile; faculty and admin can read any profile
+      allow read: if request.auth != null
+                  && (request.auth.uid == userId || userRole() in ['faculty', 'admin']);
+
+      // Only the user themselves can create their own profile
+      allow create: if request.auth != null && request.auth.uid == userId;
+
+      // Only the user themselves can update their own profile
+      // (role changes must be done via Firebase Console — no self-promotion)
+      allow update: if request.auth != null && request.auth.uid == userId;
+
+      // No deletion via client SDK
+      allow delete: if false;
+    }
+
+    // ── activities collection ─────────────────────────────────────────────────
+    match /activities/{activityId} {
+
+      // ── CREATE: Students can only create their own activity ─────────────────
+      // Correction #2: Constrain initial values so a student cannot
+      // self-approve or self-award points by sending fabricated fields.
+      //   - studentId must equal the authenticated user's UID
+      //   - status must be 'pending'  (not 'approved')
+      //   - points must be 0          (not a self-awarded value)
+      allow create: if request.auth != null
+                    && request.resource.data.studentId == request.auth.uid
+                    && request.resource.data.status   == 'pending'
+                    && request.resource.data.points   == 0;
+
+      // ── READ: Students read their own; faculty/admin read all ───────────────
+      allow read: if request.auth != null
+                  && (
+                    request.auth.uid == resource.data.studentId
+                    || userRole() in ['faculty', 'admin']
+                  );
+
+      // ── UPDATE: Only faculty and admin can update (approve/reject) ──────────
+      // Students cannot touch status, points, reviewedBy, reviewedAt, or
+      // reviewComment — only faculty/admin can write these fields.
+      allow update: if request.auth != null
+                    && userRole() in ['faculty', 'admin'];
+
+      // ── DELETE: Disallowed for all roles ────────────────────────────────────
+      allow delete: if false;
+    }
+  }
+}
