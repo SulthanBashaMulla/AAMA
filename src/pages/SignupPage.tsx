@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { motion } from 'framer-motion';
 import { UserPlus, AlertCircle, CheckCircle2, User, Hash, Building2, Mail, LockKeyhole, KeyRound, ShieldCheck } from 'lucide-react';
 import { auth } from '../lib/firebase';
 import { createUserProfile, upgradeUserRole } from '../lib/firestore';
+import { useAuth } from '../contexts/AuthContext';
 import type { UserProfile } from '../types';
 
 export default function SignupPage() {
   const navigate = useNavigate();
+  const { refreshUserProfile } = useAuth();
+  const submitInProgress = useRef(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [rollNumber, setRollNumber] = useState('');
@@ -25,6 +28,7 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitInProgress.current) return;
     setError('');
     setSuccessMessage('');
 
@@ -39,6 +43,7 @@ export default function SignupPage() {
 
     const trimmedInviteCode = inviteCode.trim();
 
+    submitInProgress.current = true;
     setLoading(true);
     setValidatingInvite(role !== 'student');
     let createdUser = null;
@@ -68,7 +73,6 @@ export default function SignupPage() {
         return;
       }
 
-      let destination: '/student' | '/faculty' | '/admin' = '/student';
       let fallbackToStudent = false;
       if (role !== 'student') {
         try {
@@ -78,7 +82,6 @@ export default function SignupPage() {
             uid: createdUser.uid,
             role,
           });
-          destination = `/${role}` as typeof destination;
         } catch (upgradeError) {
           console.error('[Signup] Invite code role upgrade failed:', upgradeError);
           setSuccessMessage('Invite code could not be verified — account created as Student.');
@@ -86,8 +89,21 @@ export default function SignupPage() {
         }
       }
 
+      // The auth listener may have cached the initial student profile. Refresh
+      // after every write and redirect only from this confirmed Firestore data.
+      const finalProfile = await refreshUserProfile();
+      if (!finalProfile) {
+        throw new Error('Profile could not be reloaded after signup.');
+      }
+      const destination = `/${finalProfile.role}` as '/student' | '/faculty' | '/admin';
+      console.info('[Signup] Final profile confirmed before redirect:', {
+        uid: finalProfile.uid,
+        role: finalProfile.role,
+        destination,
+      });
+
       if (fallbackToStudent) {
-        setTimeout(() => navigate('/student', { replace: true }), 1200);
+        setTimeout(() => navigate(destination, { replace: true }), 1200);
       } else {
         navigate(destination, { replace: true });
       }
@@ -103,6 +119,7 @@ export default function SignupPage() {
         setError('Something went wrong. Please try again.');
       }
     } finally {
+      submitInProgress.current = false;
       setValidatingInvite(false);
       setLoading(false);
     }

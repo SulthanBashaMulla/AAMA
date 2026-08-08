@@ -1,16 +1,13 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
-  useCallback,
   type ReactNode,
 } from 'react';
-import {
-  onAuthStateChanged,
-  signOut as firebaseSignOut,
-  type User,
-} from 'firebase/auth';
+import { onAuthStateChanged, signOut as firebaseSignOut, type User } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { getUserProfile } from '../lib/firestore';
 import type { UserProfile } from '../types';
@@ -19,6 +16,7 @@ interface AuthContextValue {
   currentUser: User | null;
   userProfile: UserProfile | null;
   loading: boolean;
+  refreshUserProfile: () => Promise<UserProfile | null>;
   signOut: () => Promise<void>;
 }
 
@@ -28,21 +26,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const profileRequestId = useRef(0);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      const requestId = ++profileRequestId.current;
       if (user) {
         setCurrentUser(user);
         try {
           const profile = await getUserProfile(user.uid);
-          setUserProfile(profile);
+          if (requestId === profileRequestId.current && auth.currentUser?.uid === user.uid) {
+            setUserProfile(profile);
+          }
         } catch {
-          setUserProfile(null);
+          if (requestId === profileRequestId.current) setUserProfile(null);
         }
       } else {
-        // ── Correction #10: Reset BOTH currentUser and userProfile on sign-out ──
-        // This prevents stale role from leaking into a subsequent login as
-        // a different user or different role.
         setCurrentUser(null);
         setUserProfile(null);
       }
@@ -52,17 +51,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return unsubscribe;
   }, []);
 
-  // ── signOut: eagerly clear context state before Firebase completes ──
-  // Ensures ProtectedRoute sees null immediately and redirects to /login,
-  // removing any window where stale role data could be read.
+  const refreshUserProfile = useCallback(async () => {
+    const user = auth.currentUser;
+    if (!user) {
+      setUserProfile(null);
+      return null;
+    }
+
+    const requestId = ++profileRequestId.current;
+    const profile = await getUserProfile(user.uid);
+    if (requestId === profileRequestId.current && auth.currentUser?.uid === user.uid) {
+      setCurrentUser(user);
+      setUserProfile(profile);
+    }
+    return profile;
+  }, []);
+
   const signOut = useCallback(async () => {
+    profileRequestId.current += 1;
     setCurrentUser(null);
     setUserProfile(null);
     await firebaseSignOut(auth);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, userProfile, loading, signOut }}>
+    <AuthContext.Provider value={{ currentUser, userProfile, loading, refreshUserProfile, signOut }}>
       {children}
     </AuthContext.Provider>
   );
