@@ -11,7 +11,7 @@ A production-grade SaaS web application for engineering/degree students to submi
 | Framework | Vite + React 18 + TypeScript |
 | Styling | Tailwind CSS v3 |
 | Animations | Framer Motion + anime.js |
-| Backend | Firebase v9 (Auth, Firestore, Storage) |
+| Backend | Firebase v9 (Auth, Firestore) + Cloudinary (file uploads) |
 | Routing | React Router v6 |
 | Icons | Lucide React |
 | PDF | jsPDF + html2canvas |
@@ -41,9 +41,10 @@ Open `.env.local` and fill in your Firebase project credentials:
 VITE_FIREBASE_API_KEY=...
 VITE_FIREBASE_AUTH_DOMAIN=...
 VITE_FIREBASE_PROJECT_ID=...
-VITE_FIREBASE_STORAGE_BUCKET=...
 VITE_FIREBASE_MESSAGING_SENDER_ID=...
 VITE_FIREBASE_APP_ID=...
+VITE_CLOUDINARY_CLOUD_NAME=...
+VITE_CLOUDINARY_UPLOAD_PRESET=...
 ```
 
 > .env.local is gitignored and must never be committed. The app will throw a clear error at startup if any variable is missing.
@@ -54,10 +55,15 @@ VITE_FIREBASE_APP_ID=...
 2. Create a project
 3. Enable **Authentication** > Email/Password
 4. Create a **Firestore** database (start in production mode)
-5. Enable **Storage**
-6. Copy credentials from Project Settings > Your apps > Web
+5. Copy credentials from Project Settings > Your apps > Web
 
-### 4. Deploy Firestore Security Rules
+### 4. Configure Cloudinary uploads
+
+1. Create a Cloudinary account and open the Cloudinary console
+2. Create an unsigned upload preset for certificate uploads
+3. Add `VITE_CLOUDINARY_CLOUD_NAME` and `VITE_CLOUDINARY_UPLOAD_PRESET` to `.env.local`
+
+### 5. Deploy Firestore Security Rules
 
 ```bash
 npx -y firebase-tools@latest login
@@ -65,7 +71,7 @@ npx -y firebase-tools@latest use <your-project-id>
 npx -y firebase-tools@latest deploy --only firestore:rules
 ```
 
-### 5. Run locally
+### 6. Run locally
 
 ```bash
 npm run dev
@@ -113,7 +119,7 @@ There is no public signup for faculty or admin. This is by design.
 - title: string
 - category: technical | social | sports | other
 - description: string
-- certificateUrl: string (Firebase Storage URL)
+- certificateUrl: string (Cloudinary secure URL)
 - geoLat: number | null
 - geoLng: number | null
 - submittedAt: timestamp
@@ -139,7 +145,7 @@ There is no public signup for faculty or admin. This is by design.
 
 1. Push to GitHub
 2. Import repo at vercel.com/new
-3. Add all VITE_FIREBASE_* environment variables in Vercel project settings
+3. Add all `VITE_FIREBASE_*` environment variables, plus `VITE_CLOUDINARY_CLOUD_NAME` and `VITE_CLOUDINARY_UPLOAD_PRESET`, in Vercel project settings
 4. Deploy — vercel.json handles SPA routing
 
 ---

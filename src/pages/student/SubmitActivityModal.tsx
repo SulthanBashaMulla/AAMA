@@ -8,8 +8,6 @@ import {
   CheckCircle2,
   Loader2,
 } from 'lucide-react';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { storage } from '../../lib/firebase';
 import { submitActivity } from '../../lib/firestore';
 import type { ActivityCategory } from '../../types';
 import { CATEGORY_LABELS } from '../../types';
@@ -101,20 +99,19 @@ export default function SubmitActivityModal({ open, onClose, studentId, studentN
     setErrorMsg('');
 
     try {
-      // 1. Upload to Firebase Storage
-      const ext = file.name.split('.').pop();
-      const path = `certificates/${studentId}/${Date.now()}.${ext}`;
-      const storageRef = ref(storage, path);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      // 1. Upload to Cloudinary
+      setUploadProgress(0);
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
 
-      const downloadUrl = await new Promise<string>((resolve, reject) => {
-        uploadTask.on(
-          'state_changed',
-          (snap) => setUploadProgress(Math.round((snap.bytesTransferred / snap.totalBytes) * 100)),
-          reject,
-          async () => resolve(await getDownloadURL(uploadTask.snapshot.ref))
-        );
-      });
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/auto/upload`,
+        { method: 'POST', body: formData }
+      );
+      if (!response.ok) throw new Error('Cloudinary upload failed');
+      const uploadResult: { secure_url: string } = await response.json();
+      setUploadProgress(100);
 
       setStatus('submitting');
 
@@ -128,7 +125,7 @@ export default function SubmitActivityModal({ open, onClose, studentId, studentN
         title: title.trim(),
         category,
         description: description.trim(),
-        certificateUrl: downloadUrl,
+        certificateUrl: uploadResult.secure_url,
         geoLat: lat,
         geoLng: lng,
       });
