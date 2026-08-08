@@ -38,12 +38,18 @@ function TableSkeleton() {
 export default function FacultyDashboard() {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Activity | null>(null);
 
   useEffect(() => {
+    setLoading(true);
+    setError(null);
     const unsub = subscribeToPendingActivities((data) => {
       setActivities(data);
       setLoading(false);
+    }, (listenerError) => {
+      setLoading(false);
+      setError(listenerError.message);
     });
     return unsub;
   }, []);
@@ -108,6 +114,11 @@ export default function FacultyDashboard() {
 
         {loading ? (
           <TableSkeleton />
+        ) : error ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-3">
+            <p className="text-sm font-medium text-red-300">Couldn't load pending activities — please refresh</p>
+            <p className="text-xs text-neutral-600">{error}</p>
+          </div>
         ) : activities.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
             <ClipboardCheck className="w-12 h-12 text-neutral-700" />

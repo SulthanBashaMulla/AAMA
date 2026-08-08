@@ -49,21 +49,33 @@ export default function AdminDashboard() {
   const [students, setStudents] = useState<UserProfile[]>([]);
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let studentsLoaded = false;
     let activitiesLoaded = false;
+    setLoading(true);
+    setError(null);
 
     getAllStudents().then((s) => {
       setStudents(s);
       studentsLoaded = true;
       if (activitiesLoaded) setLoading(false);
+    }).catch((loadError: Error) => {
+      console.error('Failed to load students:', loadError);
+      studentsLoaded = true;
+      setLoading(false);
+      setError(loadError.message);
     });
 
     const unsub = subscribeToAllActivities((a) => {
       setActivities(a);
       activitiesLoaded = true;
       if (studentsLoaded) setLoading(false);
+    }, (listenerError) => {
+      activitiesLoaded = true;
+      setLoading(false);
+      setError(listenerError.message);
     });
 
     return unsub;
@@ -162,6 +174,11 @@ export default function AdminDashboard() {
 
         {loading ? (
           <Skeleton />
+        ) : error ? (
+          <div className="flex flex-col items-center justify-center py-20 gap-3">
+            <p className="text-sm font-medium text-red-300">Couldn't load dashboard data — please refresh</p>
+            <p className="text-xs text-neutral-600">{error}</p>
+          </div>
         ) : rows.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 gap-3">
             <GraduationCap className="w-12 h-12 text-neutral-700" />

@@ -103,7 +103,8 @@ export async function submitActivity(
 
 export function subscribeToStudentActivities(
   studentId: string,
-  callback: (activities: Activity[]) => void
+  callback: (activities: Activity[]) => void,
+  onError?: (error: Error) => void
 ): Unsubscribe {
   const q = query(
     collection(db, 'activities'),
@@ -112,11 +113,15 @@ export function subscribeToStudentActivities(
   );
   return onSnapshot(q, (snap) => {
     callback(snap.docs.map((d) => mapActivity(d.id, d.data())));
+  }, (error) => {
+    console.error('Failed to subscribe to student activities:', error);
+    onError?.(error);
   });
 }
 
 export function subscribeToPendingActivities(
-  callback: (activities: Activity[]) => void
+  callback: (activities: Activity[]) => void,
+  onError?: (error: Error) => void
 ): Unsubscribe {
   const q = query(
     collection(db, 'activities'),
@@ -125,15 +130,22 @@ export function subscribeToPendingActivities(
   );
   return onSnapshot(q, (snap) => {
     callback(snap.docs.map((d) => mapActivity(d.id, d.data())));
+  }, (error) => {
+    console.error('Failed to subscribe to pending activities:', error);
+    onError?.(error);
   });
 }
 
 export function subscribeToAllActivities(
-  callback: (activities: Activity[]) => void
+  callback: (activities: Activity[]) => void,
+  onError?: (error: Error) => void
 ): Unsubscribe {
   const q = query(collection(db, 'activities'), orderBy('submittedAt', 'desc'));
   return onSnapshot(q, (snap) => {
     callback(snap.docs.map((d) => mapActivity(d.id, d.data())));
+  }, (error) => {
+    console.error('Failed to subscribe to all activities:', error);
+    onError?.(error);
   });
 }
 

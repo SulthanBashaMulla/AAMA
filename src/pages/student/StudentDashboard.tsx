@@ -127,13 +127,19 @@ export default function StudentDashboard() {
   const { userProfile } = useAuth();
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [showSubmit, setShowSubmit] = useState(false);
 
   useEffect(() => {
     if (!userProfile?.uid) return;
+    setLoading(true);
+    setError(null);
     const unsub = subscribeToStudentActivities(userProfile.uid, (data) => {
       setActivities(data);
       setLoading(false);
+    }, (listenerError) => {
+      setLoading(false);
+      setError(listenerError.message);
     });
     return unsub;
   }, [userProfile?.uid]);
@@ -242,6 +248,11 @@ export default function StudentDashboard() {
         {loading ? (
           <div className="space-y-3">
             {[1, 2, 3].map((i) => <ActivitySkeleton key={i} />)}
+          </div>
+        ) : error ? (
+          <div className="text-center py-16 rounded-2xl border border-dashed border-red-500/30">
+            <p className="text-sm font-medium text-red-300">Couldn't load your activities — please refresh</p>
+            <p className="text-xs text-neutral-600 mt-2">{error}</p>
           </div>
         ) : activities.length === 0 ? (
           <motion.div
