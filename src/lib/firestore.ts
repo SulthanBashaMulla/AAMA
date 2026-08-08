@@ -60,6 +60,7 @@ export async function getUserProfile(uid: string): Promise<UserProfile | null> {
     role: d.role ?? 'student',
     rollNumber: d.rollNumber,
     department: d.department,
+    college: d.college,
     createdAt: toISOString(d.createdAt),
   };
 }
@@ -98,6 +99,7 @@ export async function getAllStudents(): Promise<UserProfile[]> {
       role: 'student',
       rollNumber: data.rollNumber,
       department: data.department,
+      college: data.college,
       createdAt: toISOString(data.createdAt),
     };
   });

@@ -5,6 +5,7 @@ export interface UserProfile {
   role: 'student' | 'faculty' | 'admin';
   rollNumber?: string;
   department?: string;
+  college?: string;
   createdAt: string;
 }
 

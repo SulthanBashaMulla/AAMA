@@ -13,6 +13,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [rollNumber, setRollNumber] = useState('');
   const [department, setDepartment] = useState('');
+  const [college, setCollege] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState<UserProfile['role']>('student');
@@ -36,13 +37,7 @@ export default function SignupPage() {
       return;
     }
 
-    const configuredCode = role === 'faculty'
-      ? import.meta.env.VITE_FACULTY_INVITE_CODE
-      : role === 'admin'
-        ? import.meta.env.VITE_ADMIN_INVITE_CODE
-        : undefined;
-    const inviteCodeMatches = role === 'student'
-      || (Boolean(configuredCode) && inviteCode === configuredCode);
+    const trimmedInviteCode = inviteCode.trim();
 
     setLoading(true);
     setValidatingInvite(role !== 'student');
@@ -61,8 +56,10 @@ export default function SignupPage() {
           name: name.trim(),
           email: email.trim(),
           role: 'student',
-          rollNumber: rollNumber.trim(),
-          department: department.trim(),
+          college,
+          ...(role === 'student'
+            ? { rollNumber: rollNumber.trim(), department: department.trim() }
+            : {}),
         });
       } catch (profileError) {
         // Profile write failed — clean up orphaned auth account
@@ -74,17 +71,17 @@ export default function SignupPage() {
       let destination: '/student' | '/faculty' | '/admin' = '/student';
       let fallbackToStudent = false;
       if (role !== 'student') {
-        if (inviteCodeMatches) {
-          try {
-            await upgradeUserRole(createdUser.uid, role, inviteCode);
-            destination = `/${role}` as typeof destination;
-          } catch (upgradeError) {
-            console.error('Invite code role upgrade failed:', upgradeError);
-            setSuccessMessage('Invite code could not be verified — account created as Student.');
-            fallbackToStudent = true;
-          }
-        } else {
-          setSuccessMessage('Invite code invalid — account created as Student.');
+        try {
+          // Firestore rules validate this code against config/inviteCodes.
+          await upgradeUserRole(createdUser.uid, role, trimmedInviteCode);
+          console.info('[Signup] Invite code accepted; role upgraded:', {
+            uid: createdUser.uid,
+            role,
+          });
+          destination = `/${role}` as typeof destination;
+        } catch (upgradeError) {
+          console.error('[Signup] Invite code role upgrade failed:', upgradeError);
+          setSuccessMessage('Invite code could not be verified — account created as Student.');
           fallbackToStudent = true;
         }
       }
@@ -164,17 +161,21 @@ export default function SignupPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="mb-5 grid grid-cols-3 gap-1 rounded-lg bg-blue-50 p-1">
-              {(['student', 'faculty', 'admin'] as const).map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => { setRole(option); setInviteCode(''); }}
-                  className={`rounded-md px-2 py-2 text-xs font-semibold capitalize transition ${role === option ? 'bg-blue-800 text-white shadow-sm' : 'text-slate-500 hover:text-blue-800'}`}
-                >
-                  {option}
-                </button>
-              ))}
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Account role</label>
+              <select
+                required
+                value={role}
+                onChange={(e) => {
+                  setRole(e.target.value as UserProfile['role']);
+                  setInviteCode('');
+                }}
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm capitalize text-slate-900 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition"
+              >
+                <option value="student">Student</option>
+                <option value="faculty">Faculty</option>
+                <option value="admin">Admin</option>
+              </select>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -183,12 +184,12 @@ export default function SignupPage() {
                 <div className="relative"><User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input type="text" required value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition" placeholder="Arjun Sharma" /></div>
               </div>
 
-              <div>
+              {role === 'student' && <div>
                 <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Roll number</label>
                 <div className="relative"><Hash className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input type="text" required value={rollNumber} onChange={(e) => setRollNumber(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition" placeholder="21CS001" /></div>
-              </div>
+              </div>}
 
-              <div>
+              {role === 'student' && <div>
                 <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Department</label>
                 <div className="relative"><Building2 className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
                 <select
@@ -202,7 +203,7 @@ export default function SignupPage() {
                     <option key={d} value={d}>{d}</option>
                   ))}
                 </select></div>
-              </div>
+              </div>}
 
               {role !== 'student' && (
                 <div className="col-span-2">
@@ -213,6 +214,24 @@ export default function SignupPage() {
                   )}
                 </div>
               )}
+            </div>
+
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">College</label>
+              <div className="relative">
+                <Building2 className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                <select
+                  required
+                  value={college}
+                  onChange={(e) => setCollege(e.target.value)}
+                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition"
+                >
+                  <option value="">Select college</option>
+                  <option value="National Degree College, Nandyal">National Degree College, Nandyal</option>
+                  <option value="Sri Venkateshwara Degree College, Atmakur">Sri Venkateshwara Degree College, Atmakur</option>
+                  <option value="St. Joseph Degree College, Kurnool">St. Joseph Degree College, Kurnool</option>
+                </select>
+              </div>
             </div>
 
             <div>
