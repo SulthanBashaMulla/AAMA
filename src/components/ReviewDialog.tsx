@@ -27,33 +27,17 @@ const CATEGORY_COLORS: Record<ActivityCategory, string> = {
   other:     'bg-neutral-500/15 text-neutral-300',
 };
 
-// ── Correction #5: Static map with img onError fallback ──────────────────────
 function GeoDisplay({ lat, lng }: { lat: number; lng: number }) {
-  const [imgError, setImgError] = useState(false);
-
-  const mapUrl = `https://staticmap.openstreetmap.de/staticmap.php?center=${lat},${lng}&zoom=14&size=400x160&markers=${lat},${lng},red`;
+  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.01},${lat - 0.01},${lng + 0.01},${lat + 0.01}&marker=${lat},${lng}`;
 
   return (
     <div className="rounded-lg overflow-hidden border border-neutral-700">
-      {!imgError ? (
-        <img
-          src={mapUrl}
-          alt={`Map at ${lat.toFixed(4)}, ${lng.toFixed(4)}`}
-          className="w-full h-36 object-cover"
-          onError={() => setImgError(true)}
-        />
-      ) : (
-        // Fallback: plain text coordinates if the static map fails to load
-        <div className="h-36 bg-neutral-800 flex flex-col items-center justify-center gap-2">
-          <MapPin className="w-5 h-5 text-neutral-500" />
-          <div className="text-center">
-            <p className="text-xs text-neutral-400 font-mono">
-              {lat.toFixed(6)}, {lng.toFixed(6)}
-            </p>
-            <p className="text-[10px] text-neutral-600 mt-0.5">Map unavailable — coordinates shown</p>
-          </div>
-        </div>
-      )}
+      <iframe
+        src={mapUrl}
+        title="Submission location map"
+        className="w-full h-36 border-0"
+        loading="lazy"
+      />
       <div className="px-3 py-2 bg-neutral-800/50 flex items-center gap-1.5">
         <MapPin className="w-3 h-3 text-neutral-500" />
         <span className="text-xs text-neutral-500 font-mono">
@@ -184,7 +168,7 @@ export default function ReviewDialog({ activity, onClose }: Props) {
                   ) : (
                     <div className="h-14 rounded-lg bg-neutral-800 flex items-center justify-center gap-2">
                       <MapPin className="w-4 h-4 text-neutral-600" />
-                      <span className="text-sm text-neutral-600">Location not captured</span>
+                      <span className="text-sm text-neutral-600">Location not available</span>
                     </div>
                   )}
                 </div>

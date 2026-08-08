@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Faculty Review Detail - EduStream</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container": "#e5eeff",
+                        "surface-container-high": "#d9e8ff",
+                        "surface-container-highest": "#c9dcfa",
+                        "on-surface": "#121b2b",
+                        "on-surface-variant": "#434d5d",
+                        "outline": "#747d8f",
+                        "outline-variant": "#c3cddf",
+                        "inverse-surface": "#2d3544",
+                        "inverse-on-surface": "#f0f4ff",
+                        "primary": "#0052cc",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#d9e2ff",
+                        "on-primary-container": "#001944",
+                        "primary-fixed": "#d9e2ff",
+                        "on-primary-fixed": "#001944",
+                        "primary-fixed-dim": "#a2c1ff",
+                        "on-primary-fixed-variant": "#003d99",
+                        "secondary": "#575e71",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#dbe2f9",
+                        "on-secondary-container": "#131a2b",
+                        "secondary-fixed": "#dbe2f9",
+                        "on-secondary-fixed": "#131a2b",
+                        "secondary-fixed-dim": "#bfc6dc",
+                        "on-secondary-fixed-variant": "#3f4659",
+                        "tertiary": "#705574",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#fad8fd",
+                        "on-tertiary-container": "#29132e",
+                        "tertiary-fixed": "#fad8fd",
+                        "on-tertiary-fixed": "#29132e",
+                        "tertiary-fixed-dim": "#ddbce0",
+                        "on-tertiary-fixed-variant": "#573e5c",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#410002"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "sm": "0.125rem",
+                        "md": "0.375rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "0": "0px",
+                        "px": "1px",
+                        "0.5": "0.125rem",
+                        "1": "0.25rem",
+                        "1.5": "0.375rem",
+                        "2": "0.5rem",
+                        "2.5": "0.625rem",
+                        "3": "0.75rem",
+                        "3.5": "0.875rem",
+                        "4": "1rem",
+                        "5": "1.25rem",
+                        "6": "1.5rem",
+                        "7": "1.75rem",
+                        "8": "2rem",
+                        "9": "2.25rem",
+                        "10": "2.5rem",
+                        "11": "2.75rem",
+                        "12": "3rem",
+                        "14": "3.5rem",
+                        "16": "4rem",
+                        "20": "5rem",
+                        "24": "6rem",
+                        "28": "7rem",
+                        "32": "8rem",
+                        "36": "9rem",
+                        "40": "10rem",
+                        "44": "11rem",
+                        "48": "12rem",
+                        "52": "13rem",
+                        "56": "14rem",
+                        "60": "15rem",
+                        "64": "16rem",
+                        "72": "18rem",
+                        "80": "20rem",
+                        "96": "24rem"
+                    },
+                    "fontFamily": {
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "xs": ["0.75rem", { "lineHeight": "1rem" }],
+                        "sm": ["0.875rem", { "lineHeight": "1.25rem" }],
+                        "base": ["1rem", { "lineHeight": "1.5rem" }],
+                        "lg": ["1.125rem", { "lineHeight": "1.75rem" }],
+                        "xl": ["1.25rem", { "lineHeight": "1.75rem" }],
+                        "2xl": ["1.5rem", { "lineHeight": "2rem" }],
+                        "3xl": ["1.875rem", { "lineHeight": "2.25rem" }],
+                        "4xl": ["2.25rem", { "lineHeight": "2.5rem" }],
+                        "5xl": ["3rem", { "lineHeight": "1" }],
+                        "6xl": ["3.75rem", { "lineHeight": "1" }],
+                        "7xl": ["4.5rem", { "lineHeight": "1" }],
+                        "8xl": ["6rem", { "lineHeight": "1" }],
+                        "9xl": ["8rem", { "lineHeight": "1" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; color: #121b2b; }
+        .glass-panel {
+            background: #ffffff;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex items-center justify-center p-4">
+<!-- Modal Overlay -->
+<div class="fixed inset-0 bg-on-surface/20 backdrop-blur-sm z-40 flex items-center justify-center p-4 md:p-8">
+<!-- Modal Container -->
+<div class="glass-panel w-full max-w-5xl rounded-lg shadow-xl flex flex-col max-h-[795px] overflow-hidden relative z-50">
+<!-- Header -->
+<div class="flex items-center justify-between p-6 border-b border-outline-variant/50 bg-surface-container-lowest">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-2xl" data-icon="close">close</span>
+</button>
+<div>
+<h2 class="font-sans text-2xl font-bold text-on-surface m-0">Review Submission #A9-4B2</h2>
+<p class="font-sans text-sm text-on-surface-variant mt-1">Submitted by Elena Rostova • Advanced Machine Learning Course</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 rounded-md bg-secondary-container text-on-secondary-container font-sans text-xs font-semibold uppercase tracking-wider">Pending Review</span>
+<span class="material-symbols-outlined text-outline" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+<!-- Content Body -->
+<div class="flex-1 overflow-y-auto p-6 flex flex-col lg:flex-row gap-8 bg-surface-container-lowest">
+<!-- Left Column: Media & Map -->
+<div class="flex-1 flex flex-col gap-6">
+<!-- Certificate Preview -->
+<div class="rounded-md overflow-hidden border border-outline-variant/50 bg-surface-container-lowest relative group shadow-sm">
+<div class="absolute inset-0 bg-on-surface/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 pointer-events-none">
+<span class="material-symbols-outlined text-on-surface text-4xl bg-surface-container-lowest/90 p-3 rounded-full shadow-sm" data-icon="zoom_in">zoom_in</span>
+</div>
+<img alt="Certificate Preview" class="w-full h-auto object-cover aspect-[4/3]" data-alt="A high-resolution digital certificate of completion for an Advanced Machine Learning course, featuring elegant typography, complex geometric security patterns in gold and dark gray, and a prominent embossed seal. The document is presented against a dark, premium SaaS interface background, emphasizing a sophisticated, editorial tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCArn6YetL87-tK7m0SldT4H5njrWseLH6PDC4ECRDtPs9w2fZ8Ui7yvcgfq4o6jBz-44Gq5CHppy7BhcXItuKax7lH4o0lxWprIGF4iYezhDiYR3gqLHIN475rE0ybvQEqhfYnLzDFq7dA_3iAiL2VpJjfCj2dONVLMvxq4iHLv3gnyAAwZEHLkPatRYrj0ENDy2WqekDrHA6hcIknl3eGsr-35-sKliYn9eZY8qLtRzXWbUhAg7Lb"/>
+<div class="p-3 bg-surface border-t border-outline-variant/50 flex justify-between items-center text-on-surface-variant">
+<span class="font-sans text-xs font-semibold uppercase tracking-wider">Original Document</span>
+<span class="font-sans text-sm flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="download">download</span> 2.4 MB PDF</span>
+</div>
+</div>
+<!-- Map View -->
+<div class="rounded-md overflow-hidden border border-outline-variant/50 bg-surface-container-lowest h-48 relative shadow-sm">
+<img alt="Location Map" class="w-full h-full object-cover" data-location="Boston, MA" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALEEUUm5L1zxgWIf7CKeRq4R-aM-bNCcjdQaH6MjH7RTFiqDs9N1PkWe2pexgFoyA55ImIXvti7x8AUYPt6IOMWovuFE9x7dH4b7SWeAcQ-tqM6qRQDcoKdL0uNEcDq0h0TTcHGw9g18Spwx06D8B-0sjqZJZO7n7tLFFbIm_FX_CY91OJayU0eqdFCnbHQGb6f1QWAa3MBIzxA4ItzQgN1M60v91QIoRkFctiw5YO8thk_DV7TZT3"/>
+<div class="absolute top-3 left-3 bg-surface-container-lowest/90 backdrop-blur px-3 py-1 rounded border border-outline-variant flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-sans text-xs font-semibold text-on-surface">Submission Origin: Boston, MA</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Details & Feedback -->
+<div class="w-full lg:w-[400px] flex flex-col gap-6">
+<!-- Student Info Card -->
+<div class="bg-surface border border-outline-variant/50 p-5 rounded-md shadow-sm">
+<h3 class="font-sans text-xs font-bold text-on-surface-variant uppercase mb-4 tracking-wider">Student Profile</h3>
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<img alt="Student Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a young female student with dark hair, looking focused and academic, set against a dark grey minimalist background fitting a premium SaaS dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRpqZQk4ZJY935hEm9LGrevAKoZvAzAkn1DwFwowAIPAKqcYt8gC8ur6_daAeNqTArrGERxhx1K8p4DFvINy3jCcyAMz9uYNjDb1_VnKORf8H3Sx3i4FKnEDlzRwRX9SUZrLGkhGvlNiETVbBhNQSMJ-clyGaIcM_L8hs5pzkj7lBfWrozfADxD0R7dNq0zhAxXWcF9-RjUU1S1LMf-s_M0L80_EWRVqrLsg1AzaUOOchmwUTLol7N"/>
+</div>
+<div>
+<p class="font-sans text-base font-semibold text-on-surface m-0">Elena Rostova</p>
+<p class="font-sans text-sm text-on-surface-variant m-0">ID: STU-992-81A</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-y-3 gap-x-4">
+<div>
+<span class="block font-sans text-xs font-semibold text-on-surface-variant uppercase mb-1">Course Progress</span>
+<span class="font-sans text-sm text-on-surface font-medium">100% Completed</span>
+</div>
+<div>
+<span class="block font-sans text-xs font-semibold text-on-surface-variant uppercase mb-1">Average Grade</span>
+<span class="font-sans text-sm text-on-surface font-medium">94.2% (A)</span>
+</div>
+</div>
+</div>
+<!-- Submission Metadata -->
+<div class="bg-surface border border-outline-variant/50 p-5 rounded-md shadow-sm flex-1 flex flex-col">
+<h3 class="font-sans text-xs font-bold text-on-surface-variant uppercase mb-4 tracking-wider">Submission Details</h3>
+<div class="space-y-3 mb-6">
+<div class="flex justify-between border-b border-outline-variant/30 pb-2">
+<span class="font-sans text-sm text-on-surface-variant">Date Submitted</span>
+<span class="font-sans text-sm text-on-surface font-medium">Oct 24, 2023 - 14:32 EST</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/30 pb-2">
+<span class="font-sans text-sm text-on-surface-variant">IP Verification</span>
+<span class="font-sans text-sm text-primary flex items-center gap-1 font-medium"><span class="material-symbols-outlined text-xs" data-icon="verified_user">verified_user</span> Validated</span>
+</div>
+<div class="flex justify-between">
+<span class="font-sans text-sm text-on-surface-variant">Plagiarism Scan</span>
+<span class="font-sans text-sm text-on-surface font-medium">0% Match</span>
+</div>
+</div>
+<!-- Feedback Textarea -->
+<div class="flex-1 flex flex-col">
+<label class="font-sans text-xs font-bold text-on-surface-variant uppercase mb-2" for="feedback">Reviewer Feedback</label>
+<textarea class="w-full flex-1 min-h-[120px] bg-surface-container-lowest border border-outline-variant rounded p-3 text-base font-sans text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all resize-none placeholder:text-outline" id="feedback" placeholder="Enter specific feedback or reasons for rejection..."></textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Actions -->
+<div class="p-6 border-t border-outline-variant/50 bg-surface-container-lowest flex items-center justify-between rounded-b-lg">
+<button class="font-sans text-sm font-semibold uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-4 py-2 transition-colors">
+                    Save Draft
+                </button>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 rounded border border-error text-error hover:bg-error-container/20 font-sans text-sm font-semibold uppercase tracking-wider transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+                        Reject
+                    </button>
+<button class="px-6 py-2.5 rounded bg-[#10b981] text-white hover:bg-[#059669] font-sans text-sm font-semibold uppercase tracking-wider transition-colors flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span>
+                        Approve Certificate
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>
