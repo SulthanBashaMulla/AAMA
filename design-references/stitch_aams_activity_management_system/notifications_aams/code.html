@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alerts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#89ceff",
+                    "primary-fixed-dim": "#b8c4ff",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#3755c3",
+                    "on-primary-container": "#a8b8ff",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#dde1ff",
+                    "outline": "#757684",
+                    "inverse-primary": "#b8c4ff",
+                    "surface": "#f7f9fb",
+                    "outline-variant": "#c4c5d5",
+                    "surface-container-high": "#e6e8ea",
+                    "on-secondary-container": "#54647a",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "surface-container": "#eceef0",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-dim": "#d8dadc",
+                    "tertiary": "#003853",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "on-error-container": "#93000a",
+                    "on-background": "#191c1e",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed": "#001e2f",
+                    "tertiary-fixed": "#c9e6ff",
+                    "primary-container": "#1e40af",
+                    "secondary": "#505f76",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-bright": "#f7f9fb",
+                    "on-primary-fixed": "#001453",
+                    "tertiary-container": "#005074",
+                    "on-secondary-fixed": "#0b1c30",
+                    "primary": "#00288e",
+                    "secondary-container": "#d0e1fb",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-surface-variant": "#444653",
+                    "on-tertiary-container": "#68c4ff",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "background": "#f7f9fb",
+                    "on-primary-fixed-variant": "#173bab",
+                    "inverse-surface": "#2d3133"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "md": "16px",
+                    "2xl": "48px",
+                    "xl": "32px",
+                    "gutter": "24px",
+                    "sm": "8px",
+                    "layout-margin-desktop": "40px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "layout-margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "title-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen pb-[80px] pt-[64px] md:pt-[72px]">
+<!-- TopAppBar -->
+<header class="bg-surface-container border-b border-outline-variant shadow-sm fixed top-0 left-0 w-full z-50 flex justify-between items-center px-layout-margin-mobile md:px-layout-margin-desktop h-16 backdrop-blur-xl bg-opacity-70">
+<div class="flex items-center gap-sm">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small, professional corporate headshot avatar of a young female user, isolated on a light gray background, realistic and high quality, suitable for a light-mode dashboard UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3ovJOIaD41Q-vD_ycP4fmycTrxePctnBONE5rpqDTccEPJ1F_yKG5ETrBaLo38nGmWL-DHMkh5ILFY-b_nZsWNvCKefxnHTI1OXLhD16uKr_K0MfdseJMUnYRgmfIYRiSp-k-VhcPcisG4vbULGLDNuoLgz1dzhCwuBabzRwGBh0ZkLuhnIhHJz097ElZKxFTXVJSQVDO3owEz1nmkJfIApikjqGK29GFHRF4vLYSWS9OPrapeWs_"/>
+<h1 class="font-display-lg text-display-lg font-bold text-primary md:font-headline-lg md:text-headline-lg font-headline-lg-mobile text-headline-lg-mobile">AAMS</h1>
+</div>
+<button aria-label="Search" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-bright transition-colors text-primary">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="max-w-[1280px] mx-auto px-layout-margin-mobile md:px-layout-margin-desktop pt-lg pb-2xl">
+<div class="flex items-center justify-between mb-xl">
+<h2 class="font-headline-md text-headline-md text-on-surface">Notifications</h2>
+<button class="text-primary hover:text-surface-tint font-label-md text-label-md bg-surface-container-low px-md py-sm rounded-full transition-colors">Mark all as read</button>
+</div>
+<div class="flex flex-col gap-sm">
+<!-- Notification Item 1: Success -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex gap-md items-start shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-fixed-dim"></div>
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-primary-container shrink-0 mt-1">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start gap-sm mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">Activity Approved</h3>
+<span class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap">2h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Your activity "Workshop" was approved <span class="text-primary-container font-semibold">(+15 Pts)</span></p>
+</div>
+</div>
+<!-- Notification Item 2: Action Required -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex gap-md items-start shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-surface-tint"></div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary-container shrink-0 mt-1">
+<span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start gap-sm mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">New Submission</h3>
+<span class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap">5h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">New activity submission from Sarah Jenkins <span class="inline-block bg-surface-container px-2 py-0.5 rounded text-xs ml-1">Faculty only</span></p>
+<div class="mt-sm flex gap-sm">
+<button class="bg-primary-container text-on-primary-container px-sm py-xs rounded text-sm font-medium hover:bg-surface-tint transition-colors">Review</button>
+</div>
+</div>
+</div>
+<!-- Notification Item 3: Milestone -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex gap-md items-start shadow-sm hover:shadow-md transition-shadow">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface shrink-0 mt-1">
+<span class="material-symbols-outlined" data-icon="workspace_premium" data-weight="fill" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start gap-sm mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">Points goal reached!</h3>
+<span class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap">1d ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">You are now Gold tier. Check your dashboard for new perks.</p>
+</div>
+</div>
+<!-- Notification Item 4: Announcement -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex gap-md items-start shadow-sm hover:shadow-md transition-shadow">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-on-error-container shrink-0 mt-1">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start gap-sm mb-1">
+<h3 class="font-title-md text-title-md text-on-surface">Admin Announcement</h3>
+<span class="font-label-md text-label-md text-on-surface-variant whitespace-nowrap">2d ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Semester deadline is Nov 30. Please ensure all activities are logged.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container-low border-t border-outline-variant shadow-lg fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe rounded-t-xl backdrop-blur-xl bg-opacity-80">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-sm text-[10px] font-medium leading-none">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="assignment">assignment</span>
+<span class="font-label-sm text-[10px] font-medium leading-none">Activities</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-[10px] font-medium leading-none">Profile</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="notifications" data-weight="fill" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="font-label-sm text-[10px] font-medium leading-none">Alerts</span>
+</a>
+</nav>
+<!-- Desktop SideNav (Optional, hidden on mobile to mirror bottom nav structure) -->
+<nav class="hidden md:flex flex-col fixed left-0 top-16 w-64 h-[calc(100vh-64px)] bg-surface-container-low border-r border-outline-variant z-40 p-md gap-sm">
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-title-md text-title-md">Home</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-title-md text-title-md">Activities</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-title-md text-title-md">Profile</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg bg-primary-container text-on-primary-container" href="#">
+<span class="material-symbols-outlined" data-icon="notifications" data-weight="fill" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="font-title-md text-title-md">Alerts</span>
+</a>
+</nav>
+<style>
+        /* Adjust main layout for desktop sidebar */
+        @media (min-width: 768px) {
+            main {
+                padding-left: calc(16rem + 40px); /* sidebar width + margin */
+            }
+        }
+    </style>
+</body></html>

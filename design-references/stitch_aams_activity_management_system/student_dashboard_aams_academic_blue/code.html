@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Student Dashboard - AAMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#003853",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-tertiary-fixed": "#001e2f",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-error": "#ffffff",
+                        "secondary": "#505f76",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-container": "#54647a",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#1e40af",
+                        "secondary-fixed": "#d3e4fe",
+                        "inverse-primary": "#b8c4ff",
+                        "on-background": "#1e293b",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-tertiary-container": "#68c4ff",
+                        "on-primary-fixed-variant": "#173bab",
+                        "tertiary-fixed": "#c9e6ff",
+                        "surface": "#f8fafc",
+                        "surface-container": "#eceef0",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container-highest": "#e0e3e5",
+                        "outline": "#757684",
+                        "background": "#f8fafc",
+                        "primary-container": "#1e40af",
+                        "on-primary-fixed": "#001453",
+                        "inverse-surface": "#2d3133",
+                        "surface-bright": "#f8fafc",
+                        "tertiary-container": "#005074",
+                        "on-primary-container": "#ffffff",
+                        "surface-tint": "#3755c3",
+                        "primary-fixed": "#dde1ff",
+                        "secondary-container": "#d0e1fb",
+                        "on-surface-variant": "#475569",
+                        "outline-variant": "#cbd5e1",
+                        "on-surface": "#1e293b",
+                        "surface-dim": "#d8dadc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "layout-margin-desktop": "40px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "gutter": "24px",
+                        "2xl": "48px",
+                        "layout-margin-mobile": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.8s ease-in-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen pb-24 md:pb-0 pt-16">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest shadow-sm docked full-width top-0 border-b border-outline-variant fixed top-0 left-0 w-full z-50 flex items-center justify-between px-md h-16">
+<div class="flex items-center gap-sm">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">AAMS</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="text-primary hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a young student in a modern, dark-themed digital environment. The lighting is cinematic with subtle blue highlights reflecting the AICTE brand colors. The mood is focused and academic. The background is a slightly blurred, high-tech abstract pattern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2plKcz_miovyh87xCYdwfVoGEi3AZzPsIAtwSps3dTYJ14V_U-Gg0hFEfZrzgHr7U7zPbGGWHTQzEUagzfi18HwzyJ9aRF-qlsrRIzb5yDxfSsGmDS3Pn2FypYq180ccU01cUdAui7htsCUv7dQlZW3N-JZcRtvZLJH9ccP5Wdi-efUu_gMjzO6iHY4hnhzxDx3ernL-82I9H5GMV5aQEu-rbCprFhoZLEke1C3AEspGo3XRxVCUo"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1440px] mx-auto px-layout-margin-mobile md:px-layout-margin-desktop py-md md:py-lg grid grid-cols-1 md:grid-cols-12 gap-md md:gap-gutter">
+<!-- Welcome & Progress Widget -->
+<section class="md:col-span-12 lg:col-span-4 flex flex-col gap-md">
+<div class="bg-surface-container-lowest rounded-xl p-md flex flex-col items-center justify-center text-center relative overflow-hidden shadow-sm border border-outline-variant">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container rounded-full blur-[50px] opacity-10"></div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg mb-xs text-primary">Welcome back, Alex!</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">You're making great progress this semester.</p>
+<div class="relative w-48 h-48 flex items-center justify-center mb-sm">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<!-- Background Circle -->
+<circle class="text-surface-container-high stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-width="8"></circle>
+<!-- Progress Circle -->
+<circle class="text-primary stroke-current progress-ring__circle" cx="50" cy="50" fill="transparent" r="40" stroke-dasharray="251.2" stroke-dashoffset="87.92" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center">
+<span class="font-display-lg text-display-lg text-primary">65</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">/ 100 Points</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-2 mt-4 overflow-hidden">
+<div class="bg-primary h-2 rounded-full w-[65%]"></div>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">35 points needed for next tier</p>
+</div>
+</section>
+<!-- Recent Activities Grid -->
+<section class="md:col-span-12 lg:col-span-8 flex flex-col gap-sm">
+<div class="flex justify-between items-center mb-sm">
+<h2 class="font-title-lg text-title-lg text-primary">Recent Submissions</h2>
+<button class="font-label-md text-label-md text-primary hover:text-primary-fixed-dim transition-colors flex items-center gap-xs">
+                    View All <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-sm">
+<!-- Activity Card 1 -->
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-lg p-sm flex flex-col gap-sm hover:-translate-y-1 transition-transform duration-200 cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md bg-surface-container-low text-on-surface px-2 py-1 rounded-md">Hackathon</span>
+<span class="font-label-md text-label-md bg-error-container text-on-error-container bg-opacity-20 px-2 py-1 rounded-md font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">error</span> Rejected
+                        </span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary line-clamp-1 mb-1">National AI Hackathon 2023</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Participated in the national level AI hackathon building a predictive model for agriculture.</p>
+</div>
+<div class="flex justify-between items-end mt-auto pt-sm border-t border-outline-variant border-opacity-50">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="font-label-md text-label-md">Oct 12, 2023</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">0 Pts</span>
+</div>
+</div>
+<!-- Activity Card 2 -->
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-lg p-sm flex flex-col gap-sm hover:-translate-y-1 transition-transform duration-200 cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md bg-surface-container-low text-on-surface px-2 py-1 rounded-md">Workshop</span>
+<span class="font-label-md text-label-md bg-primary-container text-primary bg-opacity-10 px-2 py-1 rounded-md font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Approved
+                        </span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary line-clamp-1 mb-1">Advanced React Patterns</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Completed a 3-day intensive workshop on modern frontend architecture.</p>
+</div>
+<div class="flex justify-between items-end mt-auto pt-sm border-t border-outline-variant border-opacity-50">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="font-label-md text-label-md">Sep 28, 2023</span>
+</div>
+<span class="font-label-md text-label-md text-primary font-bold">+15 Pts</span>
+</div>
+</div>
+<!-- Activity Card 3 -->
+<div class="bg-surface-container-lowest shadow-sm border border-outline-variant rounded-lg p-sm flex flex-col gap-sm hover:-translate-y-1 transition-transform duration-200 cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-label-md bg-surface-container-low text-on-surface px-2 py-1 rounded-md">Online Course</span>
+<span class="font-label-md text-label-md bg-tertiary-container text-tertiary-container bg-opacity-10 px-2 py-1 rounded-md font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">pending</span> Pending
+                        </span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary line-clamp-1 mb-1">Coursera: Machine Learning</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Stanford University certification on foundational machine learning algorithms.</p>
+</div>
+<div class="flex justify-between items-end mt-auto pt-sm border-t border-outline-variant border-opacity-50">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span class="font-label-md text-label-md">Nov 02, 2023</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">-- Pts</span>
+</div>
+</div>
+<!-- Activity Card 4 (Empty State Demo) -->
+<div class="bg-surface-container-lowest rounded-lg p-sm flex flex-col items-center justify-center gap-sm text-center min-h-[200px] border-dashed border-2 border-outline-variant">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[24px]">add_task</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary mb-1">Submit More Activities</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Keep up the momentum by logging your latest achievements.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-24 md:bottom-8 right-layout-margin-mobile md:right-layout-margin-desktop w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg flex items-center justify-center hover:scale-105 transition-all duration-200 z-40 group">
+<span class="material-symbols-outlined text-[24px]">add</span>
+<!-- Tooltip -->
+<span class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Submit Activity</span>
+</button>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full flex justify-around items-center bg-surface-container-lowest h-20 px-sm pb-safe border-t border-outline-variant shadow-sm z-50">
+<button class="flex flex-col items-center justify-center text-primary font-semibold hover:bg-surface-container active:scale-90 transition-transform duration-150 p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="home" data-weight="fill" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-label-md mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container active:scale-90 transition-transform duration-150 p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label-md text-label-md mt-1">Activities</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container active:scale-90 transition-transform duration-150 p-2 rounded-lg">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">Profile</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container active:scale-90 transition-transform duration-150 p-2 rounded-lg relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-label-md text-label-md mt-1">Alerts</span>
+<span class="absolute top-2 right-4 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</nav>
+</body></html>

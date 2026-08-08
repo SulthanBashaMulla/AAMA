@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Faculty Profile - AAMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#191c1e",
+                    "on-secondary-fixed": "#0b1c30",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed": "#c9e6ff",
+                    "on-primary": "#ffffff",
+                    "primary": "#00288e",
+                    "surface-container-highest": "#e0e3e5",
+                    "outline-variant": "#c4c5d5",
+                    "surface-container-high": "#e6e8ea",
+                    "inverse-primary": "#b8c4ff",
+                    "secondary": "#505f76",
+                    "on-surface-variant": "#444653",
+                    "secondary-container": "#d0e1fb",
+                    "tertiary": "#003853",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "primary-fixed": "#dde1ff",
+                    "surface-variant": "#e0e3e5",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "surface-bright": "#f7f9fb",
+                    "on-primary-container": "#a8b8ff",
+                    "background": "#f7f9fb",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#54647a",
+                    "on-tertiary-fixed": "#001e2f",
+                    "tertiary-fixed-dim": "#89ceff",
+                    "on-primary-fixed-variant": "#173bab",
+                    "primary-fixed-dim": "#b8c4ff",
+                    "on-primary-fixed": "#001453",
+                    "tertiary-container": "#005074",
+                    "on-error": "#ffffff",
+                    "surface-container": "#eceef0",
+                    "primary-container": "#1e40af",
+                    "inverse-on-surface": "#eff1f3",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#004c6e",
+                    "on-surface": "#191c1e",
+                    "surface-tint": "#3755c3",
+                    "surface": "#f7f9fb",
+                    "secondary-fixed": "#d3e4fe",
+                    "outline": "#757684",
+                    "on-tertiary-container": "#68c4ff",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "layout-margin-desktop": "40px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "layout-margin-mobile": "16px",
+                    "xl": "32px",
+                    "gutter": "24px",
+                    "2xl": "48px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-layout-margin-mobile md:px-layout-margin-desktop h-16 bg-surface-container dark:bg-surface-container-highest backdrop-blur-xl bg-opacity-70 border-b border-outline-variant shadow-sm hidden md:flex">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<h1 class="font-display-lg text-display-lg font-bold text-primary dark:text-primary-fixed-dim">AAMS</h1>
+</div>
+<div class="flex items-center gap-md">
+<nav class="hidden md:flex gap-lg">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-bright dark:hover:bg-surface-variant transition-colors rounded-full px-4 py-2 font-label-md text-label-md" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-bright dark:hover:bg-surface-variant transition-colors rounded-full px-4 py-2 font-label-md text-label-md" href="#">Activities</a>
+<a class="text-primary dark:text-primary-fixed-dim bg-primary-container dark:bg-primary-container text-on-primary-container dark:text-on-primary-container rounded-full px-4 py-2 font-label-md text-label-md font-bold scale-95 duration-150" href="#">Profile</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-bright dark:hover:bg-surface-variant transition-colors rounded-full px-4 py-2 font-label-md text-label-md" href="#">Alerts</a>
+</nav>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim cursor-pointer hover:bg-surface-bright dark:hover:bg-surface-variant transition-colors rounded-full p-2" data-icon="search">search</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 md:pb-24 px-layout-margin-mobile md:px-layout-margin-desktop max-w-[1280px] mx-auto">
+<!-- Profile Header -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg md:p-xl shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-1px_rgba(0,0,0,0.06)] mb-gutter flex flex-col md:flex-row items-center gap-lg">
+<div class="relative w-32 h-32 rounded-full overflow-hidden border-4 border-surface-container shadow-sm flex-shrink-0">
+<img alt="Dr. Aris Thorne" class="w-full h-full object-cover" data-alt="A professional headshot of an academic professor, senior male, wearing a sharp navy blue suit, standing in a brightly lit modern university setting with a light mode aesthetic and soft daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrY0YQWSo4LT4stWIYKQTKdv8zE48VJdIrhjtP8okEx4ng6jdktRgKGeKmsstVZxYjJZ_bymFV6fVF_Bwkn5W-I_8WqUA4EKVrgXEwIMB_vdsuTSEVmA7E7sqNLLQdhIk_9_YIG_trwtZKGqlI-Ncn63TIuofri1T6FRzIa-hK8xEuPlhxCsnSXHmV--ppbV2BxMVsRLJhnaq5fxOMT6LVtJMctybciA3nJJih86wpEayArQZl_x2E"/>
+</div>
+<div class="text-center md:text-left flex-grow">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-xs">Dr. Aris Thorne</h2>
+<p class="font-title-md text-title-md text-secondary mb-sm">Senior Professor</p>
+<div class="flex items-center justify-center md:justify-start gap-sm">
+<span class="material-symbols-outlined text-outline text-sm" style="font-variation-settings: 'FILL' 1;">domain</span>
+<span class="font-body-md text-body-md text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full">Computer Science</span>
+</div>
+</div>
+<div class="flex gap-md md:ml-auto">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-lg py-sm rounded-lg hover:shadow-md transition-shadow">Edit Profile</button>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Professional Overview (Left Column) -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-sm">
+<h3 class="font-title-lg text-title-lg text-on-background mb-md flex items-center gap-sm border-b border-outline-variant pb-sm">
+<span class="material-symbols-outlined text-primary">assessment</span> Professional Overview
+                    </h3>
+<div class="flex flex-col gap-md">
+<div class="bg-surface-bright p-md rounded-lg border border-surface-variant flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Years of Experience</span>
+<span class="font-title-md text-title-md text-primary">15+</span>
+</div>
+<div class="bg-surface-bright p-md rounded-lg border border-surface-variant flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Total Reviews Conducted</span>
+<span class="font-title-md text-title-md text-primary">428</span>
+</div>
+<div class="bg-surface-bright p-md rounded-lg border border-surface-variant flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Active Committees</span>
+<span class="font-title-md text-title-md text-primary">3</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Main Content Area (Right Column) -->
+<div class="md:col-span-8 flex flex-col gap-gutter">
+<!-- Recent Review Activity -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-sm">
+<div class="flex justify-between items-center border-b border-outline-variant pb-sm mb-md">
+<h3 class="font-title-lg text-title-lg text-on-background flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">history</span> Recent Review Activity
+                        </h3>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="flex flex-col gap-sm">
+<!-- Activity Item 1 -->
+<div class="group flex items-start gap-md p-md rounded-lg hover:bg-surface-bright transition-colors border border-transparent hover:border-outline-variant">
+<div class="bg-primary-container text-on-primary-container rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-sm">article</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-title-md text-title-md text-on-background">Thesis Review: Quantum Computing Applications</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Submitted by: Sarah Jenkins, PhD Candidate</p>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-label-md text-label-md text-outline block">Today</span>
+<span class="font-label-md text-label-md text-on-surface-variant block mt-xs">10:30 AM</span>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="group flex items-start gap-md p-md rounded-lg hover:bg-surface-bright transition-colors border border-transparent hover:border-outline-variant">
+<div class="bg-secondary-container text-on-secondary-container rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-sm">grading</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-title-md text-title-md text-on-background">Mid-term Evaluation: Advanced Data Structures</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">CS-401 Cohort</p>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-label-md text-label-md text-outline block">Yesterday</span>
+<span class="font-label-md text-label-md text-on-surface-variant block mt-xs">2:15 PM</span>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="group flex items-start gap-md p-md rounded-lg hover:bg-surface-bright transition-colors border border-transparent hover:border-outline-variant">
+<div class="bg-tertiary-container text-on-tertiary-container rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-sm">group</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-title-md text-title-md text-on-background">Faculty Board Meeting Notes Approved</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Curriculum Review Committee</p>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-label-md text-label-md text-outline block">Oct 24, 2023</span>
+<span class="font-label-md text-label-md text-on-surface-variant block mt-xs">9:00 AM</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Profile Actions / Settings -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-lg shadow-sm">
+<h3 class="font-title-lg text-title-lg text-on-background mb-md flex items-center gap-sm border-b border-outline-variant pb-sm">
+<span class="material-symbols-outlined text-primary">settings</span> Profile Settings
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="bg-surface border border-outline-variant p-md rounded-lg flex flex-col gap-sm">
+<h4 class="font-title-md text-title-md text-on-background">Security</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your password and authentication methods.</p>
+<button class="mt-auto bg-white border border-outline-variant text-primary font-label-md text-label-md px-md py-sm rounded-lg hover:bg-surface-bright transition-colors self-start">Change Password</button>
+</div>
+<div class="bg-surface border border-outline-variant p-md rounded-lg flex flex-col gap-sm">
+<h4 class="font-title-md text-title-md text-on-background">Notifications</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Customize how you receive alerts and updates.</p>
+<button class="mt-auto bg-white border border-outline-variant text-primary font-label-md text-label-md px-md py-sm rounded-lg hover:bg-surface-bright transition-colors self-start">Manage Preferences</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-low dark:bg-surface-container-lowest backdrop-blur-xl bg-opacity-80 border-t border-outline-variant shadow-lg rounded-t-xl md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-xs">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label-sm text-label-sm mt-xs">Activities</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-container text-on-primary-container dark:text-on-primary-container rounded-full px-4 py-1 scale-90 duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm mt-xs">Profile</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-label-sm text-label-sm mt-xs">Alerts</span>
+</a>
+</nav>
+</body></html>

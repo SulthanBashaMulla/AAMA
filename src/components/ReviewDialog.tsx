@@ -21,26 +21,26 @@ interface Props {
 }
 
 const CATEGORY_COLORS: Record<ActivityCategory, string> = {
-  technical: 'bg-indigo-500/15 text-indigo-300',
-  social:    'bg-sky-500/15 text-sky-300',
-  sports:    'bg-orange-500/15 text-orange-300',
-  other:     'bg-neutral-500/15 text-neutral-300',
+  technical: 'bg-blue-50 text-blue-800',
+  social:    'bg-sky-50 text-sky-700',
+  sports:    'bg-orange-50 text-orange-700',
+  other:     'bg-slate-100 text-slate-600',
 };
 
 function GeoDisplay({ lat, lng }: { lat: number; lng: number }) {
   const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.01},${lat - 0.01},${lng + 0.01},${lat + 0.01}&marker=${lat},${lng}`;
 
   return (
-    <div className="rounded-lg overflow-hidden border border-neutral-700">
+    <div className="overflow-hidden rounded-lg border border-slate-200">
       <iframe
         src={mapUrl}
         title="Submission location map"
         className="w-full h-36 border-0"
         loading="lazy"
       />
-      <div className="px-3 py-2 bg-neutral-800/50 flex items-center gap-1.5">
-        <MapPin className="w-3 h-3 text-neutral-500" />
-        <span className="text-xs text-neutral-500 font-mono">
+      <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-2">
+        <MapPin className="h-3 w-3 text-slate-400" />
+        <span className="font-mono text-xs text-slate-500">
           {lat.toFixed(6)}, {lng.toFixed(6)}
         </span>
       </div>
@@ -101,7 +101,7 @@ export default function ReviewDialog({ activity, onClose }: Props) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+            className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm"
           />
 
           <motion.div
@@ -112,29 +112,29 @@ export default function ReviewDialog({ activity, onClose }: Props) {
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-full max-w-xl bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="w-full max-w-xl overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl">
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-800">
+              <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
                 <div>
-                  <h2 className="text-base font-semibold text-white">Review Submission</h2>
-                  <p className="text-xs text-neutral-500 mt-0.5">{activity.studentName}</p>
+                  <h2 className="text-base font-bold text-slate-900">Review Submission</h2>
+                  <p className="mt-0.5 text-xs text-slate-500">{activity.studentName}</p>
                 </div>
-                <button onClick={handleClose} disabled={submitting} className="text-neutral-500 hover:text-neutral-300">
+                <button onClick={handleClose} disabled={submitting} className="text-slate-400 hover:text-slate-700">
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="px-6 py-5 space-y-5 max-h-[70vh] overflow-y-auto">
+              <div className="max-h-[70vh] space-y-5 overflow-y-auto px-6 py-5">
                 {/* Activity info */}
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
                     <div className="flex-1">
-                      <h3 className="text-sm font-semibold text-white">{activity.title}</h3>
+                      <h3 className="text-sm font-semibold text-slate-900">{activity.title}</h3>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${CATEGORY_COLORS[activity.category]}`}>
+                        <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${CATEGORY_COLORS[activity.category]}`}>
                           {CATEGORY_LABELS[activity.category]}
                         </span>
-                        <span className="text-xs text-neutral-500">
+                        <span className="text-xs text-slate-500">
                           Submitted {new Date(activity.submittedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                         </span>
                       </div>
@@ -142,7 +142,7 @@ export default function ReviewDialog({ activity, onClose }: Props) {
                   </div>
 
                   {activity.description && (
-                    <p className="text-sm text-neutral-400 leading-relaxed">{activity.description}</p>
+                    <p className="text-sm leading-relaxed text-slate-600">{activity.description}</p>
                   )}
 
                   {/* Certificate link */}
@@ -151,7 +151,7 @@ export default function ReviewDialog({ activity, onClose }: Props) {
                       href={activity.certificateUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-sm text-blue-800 transition-colors hover:text-blue-700"
                     >
                       <FileText className="w-4 h-4" />
                       View certificate
@@ -162,27 +162,27 @@ export default function ReviewDialog({ activity, onClose }: Props) {
 
                 {/* Geo display */}
                 <div>
-                  <p className="text-xs font-medium text-neutral-400 uppercase tracking-wider mb-2">Submission location</p>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Submission location</p>
                   {activity.geoLat != null && activity.geoLng != null ? (
                     <GeoDisplay lat={activity.geoLat} lng={activity.geoLng} />
                   ) : (
-                    <div className="h-14 rounded-lg bg-neutral-800 flex items-center justify-center gap-2">
-                      <MapPin className="w-4 h-4 text-neutral-600" />
-                      <span className="text-sm text-neutral-600">Location not available</span>
+                    <div className="flex h-14 items-center justify-center gap-2 rounded-lg bg-slate-100">
+                      <MapPin className="h-4 w-4 text-slate-400" />
+                      <span className="text-sm text-slate-500">Location not available</span>
                     </div>
                   )}
                 </div>
 
                 {/* Decision */}
                 <div>
-                  <p className="text-xs font-medium text-neutral-400 uppercase tracking-wider mb-2">Decision</p>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Decision</p>
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       onClick={() => setDecision('approved')}
                       className={`flex items-center justify-center gap-2 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         decision === 'approved'
-                          ? 'bg-emerald-500/15 border-emerald-500 text-emerald-300'
-                          : 'border-neutral-700 text-neutral-400 hover:border-emerald-600 hover:text-emerald-400'
+                          ? 'border-green-600 bg-green-50 text-green-700'
+                          : 'border-slate-300 text-slate-500 hover:border-green-500 hover:text-green-700'
                       }`}
                     >
                       <CheckCircle2 className="w-4 h-4" /> Approve
@@ -191,8 +191,8 @@ export default function ReviewDialog({ activity, onClose }: Props) {
                       onClick={() => setDecision('rejected')}
                       className={`flex items-center justify-center gap-2 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         decision === 'rejected'
-                          ? 'bg-red-500/15 border-red-500 text-red-300'
-                          : 'border-neutral-700 text-neutral-400 hover:border-red-600 hover:text-red-400'
+                          ? 'border-red-600 bg-red-50 text-red-700'
+                          : 'border-slate-300 text-slate-500 hover:border-red-500 hover:text-red-700'
                       }`}
                     >
                       <XCircle className="w-4 h-4" /> Reject
@@ -207,7 +207,7 @@ export default function ReviewDialog({ activity, onClose }: Props) {
                     animate={{ opacity: 1, height: 'auto' }}
                     className="space-y-1.5"
                   >
-                    <label className="block text-xs font-medium text-neutral-400 uppercase tracking-wider">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
                       Points to award
                     </label>
                     <div className="flex items-center gap-2">
@@ -218,10 +218,10 @@ export default function ReviewDialog({ activity, onClose }: Props) {
                         placeholder={String(suggestedPoints)}
                         value={customPoints}
                         onChange={(e) => setCustomPoints(e.target.value === '' ? '' : Number(e.target.value))}
-                        className="w-24 rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-24 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20"
                       />
-                      <span className="text-xs text-neutral-500">
-                        Suggested: <span className="text-neutral-300 font-medium">{suggestedPoints} pts</span> for {CATEGORY_LABELS[activity.category]}
+                      <span className="text-xs text-slate-500">
+                        Suggested: <span className="font-medium text-slate-700">{suggestedPoints} pts</span> for {CATEGORY_LABELS[activity.category]}
                       </span>
                     </div>
                   </motion.div>
@@ -234,48 +234,50 @@ export default function ReviewDialog({ activity, onClose }: Props) {
                     animate={{ opacity: 1, height: 'auto' }}
                     className="space-y-1.5"
                   >
-                    <label className="block text-xs font-medium text-neutral-400 uppercase tracking-wider">
-                      Comment <span className="text-neutral-600 font-normal">(optional)</span>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                      Comment <span className="font-normal text-slate-400">(optional)</span>
                     </label>
                     <textarea
                       rows={2}
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
                       placeholder={decision === 'approved' ? 'Well done! Keep it up.' : 'Please resubmit with a valid certificate.'}
-                      className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                      className="w-full resize-none rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20"
                     />
                   </motion.div>
                 )}
 
                 {/* Error */}
                 {error && (
-                  <div className="flex items-start gap-2 rounded-lg bg-red-500/10 border border-red-500/20 px-3 py-2.5">
-                    <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm text-red-400">{error}</span>
+                  <div className="flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5">
+                    <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-600" />
+                    <span className="text-sm text-red-600">{error}</span>
                   </div>
                 )}
               </div>
 
               {/* Footer */}
-              <div className="px-6 py-4 border-t border-neutral-800 flex items-center justify-end gap-3">
+              <div className="flex items-center justify-end gap-3 border-t border-slate-200 px-6 py-4">
                 <button
                   onClick={handleClose}
                   disabled={submitting}
-                  className="px-4 py-2 text-sm text-neutral-400 hover:text-neutral-200 disabled:opacity-50"
+                  className="px-4 py-2 text-sm text-slate-500 hover:text-slate-900 disabled:opacity-50"
                 >
                   Cancel
                 </button>
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={handleSubmit}
                   disabled={!decision || submitting}
-                  className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors"
+                  className="flex items-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {submitting ? (
-                    <><Loader2 className="w-4 h-4 animate-spin" /> Saving…</>
+                    <><Loader2 className="h-4 w-4 animate-spin" /> Saving...</>
                   ) : (
                     'Submit Review'
                   )}
-                </button>
+                </motion.button>
               </div>
             </div>
           </motion.div>

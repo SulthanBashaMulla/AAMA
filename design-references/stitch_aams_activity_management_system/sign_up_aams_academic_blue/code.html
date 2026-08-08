@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AAMS - Sign Up</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#003853",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-tertiary-fixed": "#001e2f",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "surface-variant": "#e0e3e5",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-error": "#ffffff",
+                        "secondary": "#505f76",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-container": "#54647a",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#00288e",
+                        "secondary-fixed": "#d3e4fe",
+                        "inverse-primary": "#b8c4ff",
+                        "on-background": "#191c1e",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-tertiary-container": "#68c4ff",
+                        "on-primary-fixed-variant": "#173bab",
+                        "tertiary-fixed": "#c9e6ff",
+                        "surface": "#f7f9fb",
+                        "surface-container": "#eceef0",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-container-highest": "#e0e3e5",
+                        "outline": "#757684",
+                        "background": "#f7f9fb",
+                        "primary-container": "#1e40af",
+                        "on-primary-fixed": "#001453",
+                        "inverse-surface": "#2d3133",
+                        "surface-bright": "#f7f9fb",
+                        "tertiary-container": "#005074",
+                        "on-primary-container": "#a8b8ff",
+                        "surface-tint": "#3755c3",
+                        "primary-fixed": "#dde1ff",
+                        "secondary-container": "#d0e1fb",
+                        "on-surface-variant": "#444653",
+                        "outline-variant": "#c4c5d5",
+                        "on-surface": "#191c1e",
+                        "surface-dim": "#d8dadc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "layout-margin-desktop": "40px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "gutter": "24px",
+                        "2xl": "48px",
+                        "layout-margin-mobile": "16px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .input-glass {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+        }
+        
+        .input-glass:focus {
+            border-color: #1e40af;
+            box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.2);
+            outline: none;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-[#1E293B] min-h-screen flex items-center justify-center p-layout-margin-mobile relative overflow-x-hidden font-body-lg">
+<!-- Main Container -->
+<main class="w-full max-w-md relative z-10">
+<!-- Brand Header (Centered) -->
+<div class="text-center mb-8">
+<h1 class="font-display-lg text-display-lg font-bold text-[#1E40AF] mb-2">AAMS</h1>
+<p class="font-body-md text-body-md text-slate-600">Create your institutional account.</p>
+</div>
+<!-- Registration Card -->
+<div class="bg-white rounded-xl shadow-lg border border-slate-200 p-6 sm:p-8">
+<form class="space-y-6" id="signupForm">
+<!-- Role Selector (Pills) -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-slate-600 block mb-1">Select Role</label>
+<div class="flex space-x-2 bg-slate-100 p-1 rounded-lg border border-slate-200">
+<button class="role-btn flex-1 py-2 px-4 rounded-md font-body-md font-semibold transition-colors bg-[#1E40AF] text-white" data-role="student" type="button">Student</button>
+<button class="role-btn flex-1 py-2 px-4 rounded-md font-body-md font-semibold transition-colors text-slate-600 hover:bg-slate-200" data-role="faculty" type="button">Faculty</button>
+<button class="role-btn flex-1 py-2 px-4 rounded-md font-body-md font-semibold transition-colors text-slate-600 hover:bg-slate-200" data-role="admin" type="button">Admin</button>
+</div>
+</div>
+<!-- Invite Code (Conditional) -->
+<div class="hidden space-y-1 transition-all duration-300 ease-in-out opacity-0 max-h-0 overflow-hidden" id="inviteCodeContainer">
+<label class="font-label-md text-label-md text-slate-600 block" for="inviteCode">Institutional Invite Code *</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">key</span>
+<input class="input-glass w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder-slate-400 transition-all" id="inviteCode" name="inviteCode" placeholder="Enter provided code" type="text"/>
+</div>
+</div>
+<!-- Personal Info Grid -->
+<div class="grid grid-cols-1 gap-y-4">
+<!-- Full Name -->
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-slate-600 block" for="fullName">Full Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">person</span>
+<input class="input-glass w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder-slate-400 transition-all" id="fullName" name="fullName" placeholder="John Doe" required="" type="text"/>
+</div>
+</div>
+<!-- Department & Roll Number (Flex Row) -->
+<div class="flex flex-col sm:flex-row gap-4">
+<!-- Department -->
+<div class="space-y-1 flex-1">
+<label class="font-label-md text-label-md text-slate-600 block" for="department">Department</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 z-10 pointer-events-none">domain</span>
+<select class="input-glass w-full rounded-lg py-3 pl-10 pr-8 font-body-md text-body-md appearance-none transition-all cursor-pointer" id="department" name="department" required="">
+<option disabled="" selected="" value="">Select Dept</option>
+<option value="cs">Computer Science</option>
+<option value="ee">Electrical Eng.</option>
+<option value="me">Mechanical Eng.</option>
+<option value="ba">Business Admin.</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Roll Number -->
+<div class="space-y-1 flex-1">
+<label class="font-label-md text-label-md text-slate-600 block" for="idNumber" id="idLabel">Roll Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">badge</span>
+<input class="input-glass w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder-slate-400 transition-all" id="idNumber" name="idNumber" placeholder="e.g. CS2024001" required="" type="text"/>
+</div>
+</div>
+</div>
+<!-- Email -->
+<div class="space-y-1">
+<label class="font-label-md text-label-md text-slate-600 block" for="email">Institutional Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">mail</span>
+<input class="input-glass w-full rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md placeholder-slate-400 transition-all" id="email" name="email" placeholder="name@institution.edu" required="" type="email"/>
+</div>
+</div>
+<!-- Password Fields (Flex Row) -->
+<div class="flex flex-col sm:flex-row gap-4">
+<!-- Password -->
+<div class="space-y-1 flex-1">
+<label class="font-label-md text-label-md text-slate-600 block" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">lock</span>
+<input class="input-glass w-full rounded-lg py-3 pl-10 pr-10 font-body-md text-body-md placeholder-slate-400 transition-all" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-[#1E40AF] transition-colors focus:outline-none" onclick="togglePassword('password')" type="button">
+<span class="material-symbols-outlined text-sm" id="toggle-password">visibility</span>
+</button>
+</div>
+</div>
+<!-- Confirm Password -->
+<div class="space-y-1 flex-1">
+<label class="font-label-md text-label-md text-slate-600 block" for="confirmPassword">Confirm Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">lock</span>
+<input class="input-glass w-full rounded-lg py-3 pl-10 pr-10 font-body-md text-body-md placeholder-slate-400 transition-all" id="confirmPassword" name="confirmPassword" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-[#1E40AF] transition-colors focus:outline-none" onclick="togglePassword('confirmPassword')" type="button">
+<span class="material-symbols-outlined text-sm" id="toggle-confirmPassword">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Terms -->
+<div class="flex items-start mt-2">
+<div class="flex items-center h-5">
+<input class="w-4 h-4 rounded border-slate-300 text-[#1E40AF] focus:ring-[#1E40AF]" id="terms" name="terms" required="" type="checkbox"/>
+</div>
+<div class="ml-3 text-sm">
+<label class="font-body-md text-body-md text-slate-600" for="terms">I agree to the <a class="text-[#1E40AF] hover:underline font-semibold" href="#">Terms of Service</a> and <a class="text-[#1E40AF] hover:underline font-semibold" href="#">Privacy Policy</a>.</label>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full bg-[#1E40AF] text-white font-body-md font-semibold py-3 px-4 rounded-lg hover:bg-blue-800 transition-colors duration-200 shadow-md flex items-center justify-center min-h-[44px]" type="submit">
+                    Create Account
+                    <span class="material-symbols-outlined ml-2 text-lg">arrow_forward</span>
+</button>
+</form>
+<!-- Link to Login -->
+<div class="mt-6 text-center">
+<p class="font-body-md text-body-md text-slate-600">
+                    Already have an account? 
+                    <a class="text-[#1E40AF] font-semibold hover:underline transition-colors" href="#">Log In</a>
+</p>
+</div>
+</div>
+</main>
+<script>
+        // Role Selection Logic
+        const roleBtns = document.querySelectorAll('.role-btn');
+        const inviteContainer = document.getElementById('inviteCodeContainer');
+        const inviteInput = document.getElementById('inviteCode');
+        const idLabel = document.getElementById('idLabel');
+        const idInput = document.getElementById('idNumber');
+
+        roleBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Reset styles
+                roleBtns.forEach(b => {
+                    b.classList.remove('bg-[#1E40AF]', 'text-white');
+                    b.classList.add('text-slate-600', 'hover:bg-slate-200');
+                });
+                
+                // Active style
+                const target = e.target;
+                target.classList.add('bg-[#1E40AF]', 'text-white');
+                target.classList.remove('text-slate-600', 'hover:bg-slate-200');
+
+                const role = target.getAttribute('data-role');
+
+                // Conditional Logic
+                if (role === 'student') {
+                    inviteContainer.classList.remove('opacity-100', 'max-h-24', 'mb-4');
+                    inviteContainer.classList.add('opacity-0', 'max-h-0', 'hidden');
+                    setTimeout(() => inviteContainer.classList.add('hidden'), 300);
+                    inviteInput.removeAttribute('required');
+                    
+                    idLabel.textContent = 'Roll Number';
+                    idInput.placeholder = 'e.g. CS2024001';
+                } else {
+                    inviteContainer.classList.remove('hidden');
+                    setTimeout(() => {
+                        inviteContainer.classList.remove('opacity-0', 'max-h-0');
+                        inviteContainer.classList.add('opacity-100', 'max-h-24', 'mb-4');
+                    }, 10);
+                    inviteInput.setAttribute('required', 'true');
+                    
+                    idLabel.textContent = role === 'faculty' ? 'Employee ID' : 'Admin ID';
+                    idInput.placeholder = role === 'faculty' ? 'e.g. FAC-7892' : 'e.g. ADM-001';
+                }
+            });
+        });
+
+        // Password Visibility Toggle
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById('toggle-' + inputId);
+            
+            if (input.type === "password") {
+                input.type = "text";
+                icon.textContent = "visibility_off";
+            } else {
+                input.type = "password";
+                icon.textContent = "visibility";
+            }
+        }
+    </script>
+</body></html>

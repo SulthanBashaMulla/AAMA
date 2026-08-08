@@ -153,7 +153,7 @@ export default function SubmitActivityModal({ open, onClose, studentId, studentN
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+            className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm"
           />
 
           {/* Modal */}
@@ -165,14 +165,14 @@ export default function SubmitActivityModal({ open, onClose, studentId, studentN
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="w-full max-w-lg bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="w-full max-w-lg overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl">
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-800">
-                <h2 className="text-base font-semibold text-white">Submit Activity</h2>
+              <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+                <div><h2 className="text-lg font-bold text-slate-900">Submit Activity</h2><p className="mt-0.5 text-xs text-slate-500">Log a new co-curricular achievement.</p></div>
                 <button
                   onClick={handleClose}
                   disabled={busy}
-                  className="text-neutral-500 hover:text-neutral-300 disabled:opacity-30 transition-colors"
+                  className="text-slate-400 transition-colors hover:text-slate-700 disabled:opacity-30"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -185,32 +185,32 @@ export default function SubmitActivityModal({ open, onClose, studentId, studentN
                   animate={{ opacity: 1, y: 0 }}
                   className="px-6 py-12 flex flex-col items-center gap-3"
                 >
-                  <div className="w-14 h-14 rounded-full bg-emerald-500/15 flex items-center justify-center">
-                    <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-50">
+                    <CheckCircle2 className="h-8 w-8 text-green-600" />
                   </div>
-                  <h3 className="text-base font-semibold text-white">Activity Submitted!</h3>
-                  <p className="text-sm text-neutral-400 text-center">
+                  <h3 className="text-base font-semibold text-slate-900">Activity Submitted!</h3>
+                  <p className="text-center text-sm text-slate-500">
                     Your activity is pending review. You'll see it in your dashboard shortly.
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4 max-h-[70vh] overflow-y-auto">
+                <form onSubmit={handleSubmit} className="max-h-[70vh] space-y-5 overflow-y-auto px-6 py-5">
                   {/* Title */}
                   <div>
-                    <label className="block text-sm font-medium text-neutral-300 mb-1.5">Activity title</label>
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Activity title</label>
                     <input
                       required
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       disabled={busy}
-                      className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition disabled:opacity-50"
+                      className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 disabled:opacity-50"
                       placeholder="e.g. Hackathon participation — Smart India Hackathon 2025"
                     />
                   </div>
 
                   {/* Category */}
                   <div>
-                    <label className="block text-sm font-medium text-neutral-300 mb-1.5">Category</label>
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Category</label>
                     <div className="grid grid-cols-4 gap-2">
                       {CATEGORIES.map((cat) => (
                         <button
@@ -220,8 +220,8 @@ export default function SubmitActivityModal({ open, onClose, studentId, studentN
                           onClick={() => setCategory(cat)}
                           className={`px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${
                             category === cat
-                              ? 'bg-indigo-600/20 border-indigo-500 text-indigo-300'
-                              : 'border-neutral-700 text-neutral-400 hover:border-neutral-600 hover:text-neutral-300'
+                              ? 'border-blue-800 bg-blue-50 text-blue-800'
+                              : 'border-slate-300 text-slate-500 hover:border-blue-300 hover:text-blue-800'
                           } disabled:opacity-50`}
                         >
                           {CATEGORY_LABELS[cat]}
@@ -232,31 +232,31 @@ export default function SubmitActivityModal({ open, onClose, studentId, studentN
 
                   {/* Description */}
                   <div>
-                    <label className="block text-sm font-medium text-neutral-300 mb-1.5">Description</label>
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Description</label>
                     <textarea
                       required
                       rows={3}
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       disabled={busy}
-                      className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition resize-none disabled:opacity-50"
+                      className="w-full resize-none rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 disabled:opacity-50"
                       placeholder="Describe what you did, your role, and any achievements…"
                     />
                   </div>
 
                   {/* File upload */}
                   <div>
-                    <label className="block text-sm font-medium text-neutral-300 mb-1.5">
-                      Certificate <span className="text-neutral-600 font-normal">(PDF, JPG, PNG · max 5 MB)</span>
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">
+                      Certificate <span className="font-normal normal-case text-slate-400">(PDF, JPG, PNG · max 5 MB)</span>
                     </label>
                     <div
                       onClick={() => !busy && fileInputRef.current?.click()}
                       className={`relative rounded-lg border-2 border-dashed px-4 py-5 text-center cursor-pointer transition-colors ${
                         fileError
-                          ? 'border-red-500/50 bg-red-500/5'
+                          ? 'border-red-300 bg-red-50'
                           : file
-                          ? 'border-emerald-500/40 bg-emerald-500/5'
-                          : 'border-neutral-700 hover:border-neutral-600 bg-neutral-800/50'
+                          ? 'border-green-300 bg-green-50'
+                          : 'border-slate-300 bg-slate-50 hover:border-blue-300'
                       } ${busy ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                       <input
@@ -269,20 +269,20 @@ export default function SubmitActivityModal({ open, onClose, studentId, studentN
                       />
                       {file ? (
                         <div className="flex items-center justify-center gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                          <span className="text-sm text-emerald-300 truncate max-w-xs">{file.name}</span>
-                          <span className="text-xs text-neutral-500">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                          <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-green-600" />
+                          <span className="max-w-xs truncate text-sm text-green-700">{file.name}</span>
+                          <span className="text-xs text-slate-500">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
                         </div>
                       ) : (
                         <div className="flex flex-col items-center gap-1.5">
-                          <Upload className="w-5 h-5 text-neutral-500" />
-                          <span className="text-sm text-neutral-400">Click to upload certificate</span>
-                          <span className="text-xs text-neutral-600">or drag and drop</span>
+                          <Upload className="h-5 w-5 text-slate-400" />
+                          <span className="text-sm text-slate-600">Click to upload certificate</span>
+                          <span className="text-xs text-slate-400">or drag and drop</span>
                         </div>
                       )}
                     </div>
                     {fileError && (
-                      <p className="mt-1.5 text-xs text-red-400 flex items-center gap-1">
+                      <p className="mt-1.5 flex items-center gap-1 text-xs text-red-600">
                         <AlertCircle className="w-3 h-3" /> {fileError}
                       </p>
                     )}
@@ -291,49 +291,51 @@ export default function SubmitActivityModal({ open, onClose, studentId, studentN
                   {/* Upload progress */}
                   {status === 'uploading' && (
                     <div>
-                      <div className="flex justify-between text-xs text-neutral-400 mb-1">
-                        <span>Uploading certificate…</span>
+                      <div className="mb-1 flex justify-between text-xs text-slate-500">
+                        <span>Uploading certificate...</span>
                         <span>{uploadProgress}%</span>
                       </div>
-                      <div className="h-1.5 bg-neutral-800 rounded-full overflow-hidden">
+                      <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
                         <motion.div
                           animate={{ width: `${uploadProgress}%` }}
-                          className="h-full bg-indigo-500 rounded-full"
+                          className="h-full rounded-full bg-blue-800"
                         />
                       </div>
                     </div>
                   )}
 
                   {/* Geo note */}
-                  <div className="flex items-start gap-2 rounded-lg bg-neutral-800 px-3 py-2.5">
-                    <MapPin className="w-4 h-4 text-neutral-500 mt-0.5 flex-shrink-0" />
-                    <p className="text-xs text-neutral-500">
+                  <div className="flex items-start gap-2 rounded-lg bg-blue-50 px-3 py-2.5">
+                    <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-800" />
+                    <p className="text-xs text-slate-600">
                       Your browser location will be recorded with this submission (if available). Location access is optional — submission will succeed either way.
                     </p>
                   </div>
 
                   {/* Error */}
                   {status === 'error' && (
-                    <div className="flex items-start gap-2 rounded-lg bg-red-500/10 border border-red-500/20 px-3 py-2.5">
-                      <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-red-400">{errorMsg}</span>
+                    <div className="flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5">
+                      <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-600" />
+                      <span className="text-sm text-red-600">{errorMsg}</span>
                     </div>
                   )}
 
                   {/* Actions */}
-                  <div className="flex items-center justify-end gap-3 pt-2">
-                    <button
+                  <div className="flex items-center justify-end gap-3 border-t border-slate-100 pt-4">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                       type="button"
                       onClick={handleClose}
                       disabled={busy}
-                      className="px-4 py-2 text-sm text-neutral-400 hover:text-neutral-200 disabled:opacity-50 transition-colors"
+                      className="px-4 py-2 text-sm text-slate-500 transition-colors hover:text-slate-900 disabled:opacity-50"
                     >
                       Cancel
-                    </button>
+                    </motion.button>
                     <button
                       type="submit"
                       disabled={busy || !!fileError}
-                      className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors"
+                      className="flex items-center gap-2 rounded-lg bg-blue-800 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {busy ? (
                         <>

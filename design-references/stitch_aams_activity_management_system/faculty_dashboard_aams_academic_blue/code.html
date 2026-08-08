@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Faculty Dashboard - Pending Submissions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "tertiary": "#003853",
+                "on-primary": "#ffffff",
+                "on-secondary": "#ffffff",
+                "surface-container-low": "#f2f4f6",
+                "on-secondary-fixed-variant": "#38485d",
+                "on-tertiary-fixed": "#001e2f",
+                "on-error-container": "#93000a",
+                "tertiary-fixed-dim": "#89ceff",
+                "surface-variant": "#e0e3e5",
+                "secondary-fixed-dim": "#b7c8e1",
+                "on-error": "#ffffff",
+                "secondary": "#505f76",
+                "on-tertiary-fixed-variant": "#004c6e",
+                "inverse-on-surface": "#eff1f3",
+                "on-secondary-container": "#54647a",
+                "primary-fixed-dim": "#b8c4ff",
+                "error-container": "#ffdad6",
+                "surface-container-lowest": "#ffffff",
+                "error": "#ba1a1a",
+                "on-tertiary": "#ffffff",
+                "primary": "#00288e",
+                "secondary-fixed": "#d3e4fe",
+                "inverse-primary": "#b8c4ff",
+                "on-background": "#191c1e",
+                "on-secondary-fixed": "#0b1c30",
+                "on-tertiary-container": "#68c4ff",
+                "on-primary-fixed-variant": "#173bab",
+                "tertiary-fixed": "#c9e6ff",
+                "surface": "#f7f9fb",
+                "surface-container": "#eceef0",
+                "surface-container-high": "#e6e8ea",
+                "surface-container-highest": "#e0e3e5",
+                "outline": "#757684",
+                "background": "#f7f9fb",
+                "primary-container": "#1e40af",
+                "on-primary-fixed": "#001453",
+                "inverse-surface": "#2d3133",
+                "surface-bright": "#f7f9fb",
+                "tertiary-container": "#005074",
+                "on-primary-container": "#a8b8ff",
+                "surface-tint": "#3755c3",
+                "primary-fixed": "#dde1ff",
+                "secondary-container": "#d0e1fb",
+                "on-surface-variant": "#444653",
+                "outline-variant": "#c4c5d5",
+                "on-surface": "#191c1e",
+                "surface-dim": "#d8dadc"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "lg": "24px",
+                "layout-margin-desktop": "40px",
+                "md": "16px",
+                "sm": "8px",
+                "xs": "4px",
+                "xl": "32px",
+                "gutter": "24px",
+                "2xl": "48px",
+                "layout-margin-mobile": "16px",
+                "base": "4px"
+        },
+        "fontFamily": {
+                "title-md": [
+                        "Inter"
+                ],
+                "title-lg": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "title-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "title-lg": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-md": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .glass-card {
+            background: #ffffff;
+            border: 1px solid #e0e3e5;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .glass-card:hover {
+            border-color: #b8c4ff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .modal-glass {
+            background: #ffffff;
+            border: 1px solid #e0e3e5;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        /* Hidden class for toggling */
+        .hidden { display: none !important; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] min-h-screen flex flex-col font-body-md text-[#1E293B]">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-md w-full h-16 bg-surface-container-lowest border-b border-outline-variant shadow-sm md:px-layout-margin-desktop">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-[#1E40AF]">AAMS</h1>
+</div>
+<!-- Desktop Nav -->
+<nav class="hidden md:flex gap-lg items-center">
+<a class="flex items-center gap-xs font-title-md text-title-md text-secondary hover:text-[#1E40AF] transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+                Home
+            </a>
+<a class="flex items-center gap-xs font-title-md text-title-md text-[#1E40AF] bg-surface-container-low px-sm py-xs rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+                Activities
+            </a>
+<a class="flex items-center gap-xs font-title-md text-title-md text-secondary hover:text-[#1E40AF] transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+                Profile
+            </a>
+</nav>
+<div class="flex items-center gap-sm text-[#1E40AF] hover:bg-surface-container-low p-2 rounded-full cursor-pointer transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto mt-16 pb-24 md:pb-16 px-layout-margin-mobile md:px-layout-margin-desktop pt-lg">
+<div class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-[#1E40AF] mb-xs">Pending Submissions</h2>
+<p class="text-[#1E293B] font-body-md text-body-md">Review and validate student activity reports.</p>
+</div>
+<div class="flex gap-sm">
+<button class="glass-card px-4 py-2 rounded-lg text-[#1E40AF] flex items-center gap-2 font-title-md text-title-md transition-all">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+                </button>
+</div>
+</div>
+<!-- Submission List (Bento-ish Grid on Desktop, Cards on Mobile) -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-gutter md:gap-md">
+<!-- Submission Card 1 -->
+<div class="glass-card rounded-xl p-md flex flex-col gap-md cursor-pointer transition-all duration-300 transform hover:-translate-y-1" onclick="openReviewModal('Sarah Jenkins', 'Hackathon Participation', '2023-10-24')">
+<div class="flex justify-between items-start">
+<div class="flex gap-sm items-center">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-title-md text-title-md">
+                            SJ
+                        </div>
+<div>
+<h3 class="font-title-md text-title-md text-[#1E40AF]">Sarah Jenkins</h3>
+<p class="font-label-md text-label-md text-secondary">CS-2021-042</p>
+</div>
+</div>
+<span class="bg-tertiary-container/10 text-tertiary-container px-2 py-1 rounded text-xs font-semibold border border-tertiary-container/20">Pending</span>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div>
+<p class="font-label-md text-label-md text-outline mb-1">Category</p>
+<p class="font-body-md text-body-md text-[#1E293B]">Hackathon Participation</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-outline mb-1">Date</p>
+<p class="font-body-md text-body-md text-[#1E293B]">Oct 24, 2023</p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-sm pt-sm border-t border-outline-variant/50">
+<div class="flex-1">
+<p class="font-label-md text-label-md text-outline mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">link</span> Evidence</p>
+<a class="text-[#1E40AF] hover:text-primary-fixed-dim underline decoration-primary/50 text-sm truncate block" href="#" onclick="event.stopPropagation()">certificate_hackathon_final.pdf</a>
+</div>
+<div class="w-full sm:w-24 h-16 rounded overflow-hidden relative border border-outline-variant/30 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small, stylized map thumbnail centered on a specific location pin in San Francisco. The map is in a dark mode aesthetic, featuring deep navy and slate grey tones with subtle glowing cyan grid lines indicating roads. The pin itself is a vibrant blue dot with a soft translucent halo. The overall mood is technological and precise, suitable for a modern data dashboard interface. Clean, minimalist design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm8cGz2_sPbfCaJjtONQ5TTd9pwDAw_26AkPNRgMDTh3jFq9uZjuHooAQsYmwzMfKteQMR4c0a6p2SL6dtRNPmOKbzIgQkxVOfL6guK_QhMklyJGlLHwmMcU4Jm8r4sdn8HdDwG6wq6B44U7xE5uSit4U5ArH0dVF1LoED2J4gkt6F6cIH7XuegpAj8jvY5mlEVYy6mHMpRmDvYGnPn3cs1lNPfIawM_Ya7gNU-ZY8s4_XK98CRSeP"/>
+<div class="absolute inset-0 bg-black/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-white/90 text-sm drop-shadow-md">location_on</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Submission Card 2 -->
+<div class="glass-card rounded-xl p-md flex flex-col gap-md cursor-pointer transition-all duration-300 transform hover:-translate-y-1" onclick="openReviewModal('Michael Chen', 'Community Service', '2023-10-22')">
+<div class="flex justify-between items-start">
+<div class="flex gap-sm items-center">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-title-md text-title-md">
+                            MC
+                        </div>
+<div>
+<h3 class="font-title-md text-title-md text-[#1E40AF]">Michael Chen</h3>
+<p class="font-label-md text-label-md text-secondary">EE-2020-118</p>
+</div>
+</div>
+<span class="bg-tertiary-container/10 text-tertiary-container px-2 py-1 rounded text-xs font-semibold border border-tertiary-container/20">Pending</span>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div>
+<p class="font-label-md text-label-md text-outline mb-1">Category</p>
+<p class="font-body-md text-body-md text-[#1E293B]">Community Service</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-outline mb-1">Date</p>
+<p class="font-body-md text-body-md text-[#1E293B]">Oct 22, 2023</p>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-sm pt-sm border-t border-outline-variant/50">
+<div class="flex-1">
+<p class="font-label-md text-label-md text-outline mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">link</span> Evidence</p>
+<a class="text-[#1E40AF] hover:text-primary-fixed-dim underline decoration-primary/50 text-sm truncate block" href="#" onclick="event.stopPropagation()">beach_cleanup_photos.zip</a>
+</div>
+<div class="w-full sm:w-24 h-16 rounded overflow-hidden relative border border-outline-variant/30 flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small, stylized map thumbnail centered on a coastal location. The map uses a sleek dark mode theme with deep indigo waters and charcoal landmasses. Subtle, glowing topographical lines are visible. A small glowing marker indicates a point near the shoreline. The image conveys a modern, high-tech interface vibe, designed for an enterprise tracking system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvgFPnQW9EV5XikY2Q2Fk215SnI41Gw5aY_TaRrG1RU4oegBqY0d9_5A1YLS1io3Bfu18uYcGJmroBcLnDGwPsD8Lt5bpFQ_tMr87YmIy6pnSznrVMGTe-mo5wuAiOe65WxESgNtuj05q8fjvZxmDYeptWRLzw3ZW6Rz3qtfxkYWJTCxRQZZTpnB3s0kmkqijUABKRqqTDQIOxD0fFNXJGCuVI10nwpsNJ3EnoBFAo6LBDxbdV00VM"/>
+<div class="absolute inset-0 bg-black/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-white/90 text-sm drop-shadow-md">location_on</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full flex justify-around items-center bg-surface-container-lowest h-20 px-sm pb-safe z-50 border-t border-outline-variant shadow-sm">
+<a class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container rounded-lg p-2 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#1E40AF] font-semibold hover:bg-surface-container rounded-lg p-2 transition-colors active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-md text-label-md">Activities</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container rounded-lg p-2 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:bg-surface-container rounded-lg p-2 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">notifications</span>
+<span class="font-label-md text-label-md">Alerts</span>
+</a>
+</nav>
+<!-- Review Dialog / Modal Overlay -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="reviewModal">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-[#1E293B]/60 backdrop-blur-sm" onclick="closeReviewModal()"></div>
+<!-- Modal Content -->
+<div class="modal-glass relative w-full max-w-lg rounded-2xl p-lg flex flex-col gap-md transform transition-all">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-[#1E40AF] mb-1">Review Submission</h2>
+<p class="font-body-md text-body-md text-secondary" id="modalStudentName">Student Name</p>
+</div>
+<button class="text-secondary hover:text-[#1E40AF] bg-surface-container-low rounded-full p-2 transition-colors" onclick="closeReviewModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="bg-surface-container-low rounded-lg p-sm border border-outline-variant/30 text-sm">
+<p class="mb-1"><strong class="text-outline">Activity:</strong> <span class="text-[#1E293B]" id="modalActivityName">...</span></p>
+<p><strong class="text-outline">Date:</strong> <span class="text-[#1E293B]" id="modalDate">...</span></p>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-[#1E293B]" for="reviewComments">Reviewer Comments</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded-lg p-sm text-[#1E293B] focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder-outline resize-none font-body-md text-body-md" id="reviewComments" placeholder="Add feedback or reasons for rejection..." rows="3"></textarea>
+</div>
+<div class="flex gap-sm mt-sm pt-sm border-t border-outline-variant/50">
+<button class="flex-1 bg-[#15803d] hover:bg-[#166534] text-white py-3 rounded-lg font-title-md text-title-md transition-colors flex items-center justify-center gap-2" onclick="closeReviewModal()">
+<span class="material-symbols-outlined text-[18px]">check_circle</span> Approve
+                </button>
+<button class="flex-1 bg-error-container hover:bg-[#fca5a5] text-on-error-container py-3 rounded-lg font-title-md text-title-md transition-colors flex items-center justify-center gap-2 border border-[#f87171]/50" onclick="closeReviewModal()">
+<span class="material-symbols-outlined text-[18px]">cancel</span> Reject
+                </button>
+</div>
+</div>
+</div>
+<script>
+        function openReviewModal(student, activity, date) {
+            document.getElementById('modalStudentName').textContent = student;
+            document.getElementById('modalActivityName').textContent = activity;
+            document.getElementById('modalDate').textContent = date;
+            
+            const modal = document.getElementById('reviewModal');
+            modal.classList.remove('hidden');
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReviewModal() {
+            const modal = document.getElementById('reviewModal');
+            modal.classList.add('hidden');
+            document.getElementById('reviewComments').value = ''; // clear textarea
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+        }
+    </script>
+</body></html>

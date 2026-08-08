@@ -7,8 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Hanken Grotesk', 'system-ui', 'sans-serif'],
-        display: ['Syne', 'Hanken Grotesk', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         // Single primary accent — indigo

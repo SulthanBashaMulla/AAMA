@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { motion } from 'framer-motion';
-import { UserPlus, BookOpen, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { UserPlus, AlertCircle, CheckCircle2, User, Hash, Building2, Mail, LockKeyhole, KeyRound, ShieldCheck } from 'lucide-react';
 import { auth } from '../lib/firebase';
 import { createUserProfile, upgradeUserRole } from '../lib/firestore';
 import type { UserProfile } from '../types';
@@ -123,10 +123,7 @@ export default function SignupPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center p-4 py-8">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-indigo-600/8 rounded-full blur-3xl" />
-      </div>
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4 py-8">
 
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -135,25 +132,23 @@ export default function SignupPage() {
         className="relative w-full max-w-md"
       >
         {/* Logo */}
-        <div className="flex items-center gap-2 mb-8 justify-center">
-          <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center">
-            <BookOpen className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-xl font-semibold text-white tracking-tight">AAMS</span>
+        <div className="mb-6 text-center">
+          <h1 className="text-4xl font-extrabold tracking-tight text-blue-800">AAMS</h1>
+          <p className="mt-2 text-sm text-slate-500">Create your institutional account.</p>
         </div>
 
-        <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 shadow-2xl">
-          <h1 className="text-2xl font-semibold text-white mb-1">Create account</h1>
-          <p className="text-sm text-neutral-400 mb-6">Register as a student to track your activity points</p>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 sm:p-8">
+          <h2 className="text-xl font-bold text-slate-900">Create account</h2>
+          <p className="mt-1 text-sm text-slate-500">Register to track your activity points.</p>
 
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-4 flex items-start gap-2 rounded-lg bg-red-500/10 border border-red-500/20 px-3 py-2.5"
+              className="mb-4 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5"
             >
-              <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-red-400">{error}</span>
+              <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-600" />
+              <span className="text-sm text-red-600">{error}</span>
             </motion.div>
           )}
 
@@ -161,153 +156,107 @@ export default function SignupPage() {
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-4 flex items-start gap-2 rounded-lg bg-amber-500/10 border border-amber-500/20 px-3 py-2.5"
+              className="mb-4 flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5"
             >
-              <CheckCircle2 className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-amber-300">{successMessage}</span>
+              <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-600" />
+              <span className="text-sm text-amber-700">{successMessage}</span>
             </motion.div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="mb-5 grid grid-cols-3 gap-1 rounded-lg bg-blue-50 p-1">
+              {(['student', 'faculty', 'admin'] as const).map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => { setRole(option); setInviteCode(''); }}
+                  className={`rounded-md px-2 py-2 text-xs font-semibold capitalize transition ${role === option ? 'bg-blue-800 text-white shadow-sm' : 'text-slate-500 hover:text-blue-800'}`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Full name</label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                  placeholder="Arjun Sharma"
-                />
+                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Full name</label>
+                <div className="relative"><User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input type="text" required value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition" placeholder="Arjun Sharma" /></div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Roll number</label>
-                <input
-                  type="text"
-                  required
-                  value={rollNumber}
-                  onChange={(e) => setRollNumber(e.target.value)}
-                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                  placeholder="21CS001"
-                />
+                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Roll number</label>
+                <div className="relative"><Hash className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input type="text" required value={rollNumber} onChange={(e) => setRollNumber(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition" placeholder="21CS001" /></div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Department</label>
+                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Department</label>
+                <div className="relative"><Building2 className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
                 <select
                   required
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
-                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition"
                 >
                   <option value="">Select…</option>
                   {departments.map((d) => (
                     <option key={d} value={d}>{d}</option>
                   ))}
-                </select>
-              </div>
-
-              <div className="col-span-2">
-                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Account role</label>
-                <select
-                  required
-                  value={role}
-                  onChange={(e) => {
-                    setRole(e.target.value as UserProfile['role']);
-                    setInviteCode('');
-                  }}
-                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                >
-                  <option value="student">Student</option>
-                  <option value="faculty">Faculty</option>
-                  <option value="admin">Admin</option>
-                </select>
+                </select></div>
               </div>
 
               {role !== 'student' && (
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-neutral-300 mb-1.5">Invite Code</label>
-                  <input
-                    type="text"
-                    required
-                    value={inviteCode}
-                    onChange={(e) => setInviteCode(e.target.value)}
-                    className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                    placeholder="Enter your invite code"
-                  />
+                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Invite code</label>
+                  <div className="relative"><ShieldCheck className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input type="text" required value={inviteCode} onChange={(e) => setInviteCode(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition" placeholder="Enter your invite code" /></div>
                   {validatingInvite && (
-                    <p className="mt-1 text-xs text-neutral-500">Invite code will be verified during account creation.</p>
+                    <p className="mt-1 text-xs text-slate-500">Invite code will be verified during account creation.</p>
                   )}
                 </div>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-neutral-300 mb-1.5">Email address</label>
-              <input
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                placeholder="you@college.edu"
-              />
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Email address</label>
+              <div className="relative"><Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition" placeholder="you@college.edu" /></div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-neutral-300 mb-1.5">Password</label>
-              <input
-                type="password"
-                autoComplete="new-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                placeholder="Min. 6 characters"
-              />
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Password</label>
+              <div className="relative"><LockKeyhole className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input type="password" autoComplete="new-password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition" placeholder="Min. 6 characters" /></div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-neutral-300 mb-1.5">Confirm password</label>
-              <input
-                type="password"
-                autoComplete="new-password"
-                required
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                placeholder="Re-enter password"
-              />
+              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-600">Confirm password</label>
+              <div className="relative"><KeyRound className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input type="password" autoComplete="new-password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 pl-10 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-800/20 transition" placeholder="Re-enter password" /></div>
               {confirmPassword && password !== confirmPassword && (
-                <p className="mt-1 text-xs text-red-400">Passwords do not match</p>
+                <p className="mt-1 text-xs text-red-600">Passwords do not match</p>
               )}
               {confirmPassword && password === confirmPassword && confirmPassword.length >= 6 && (
-                <p className="mt-1 text-xs text-emerald-400 flex items-center gap-1">
+                <p className="mt-1 flex items-center gap-1 text-xs text-green-600">
                   <CheckCircle2 className="w-3 h-3" /> Passwords match
                 </p>
               )}
             </div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2.5 text-sm font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-neutral-900 mt-2"
+              className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2"
             >
               {loading ? (
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
               ) : (
                 <UserPlus className="w-4 h-4" />
               )}
               {loading ? (validatingInvite ? 'Verifying invite…' : 'Creating account…') : 'Create account'}
-            </button>
+            </motion.button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-neutral-500">
+          <p className="mt-6 text-center text-sm text-slate-500">
             Already have an account?{' '}
-            <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors">
+            <Link to="/login" className="font-semibold text-blue-800 transition hover:text-blue-700">
               Sign in
             </Link>
           </p>
