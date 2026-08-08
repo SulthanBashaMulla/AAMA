@@ -4,7 +4,8 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { motion } from 'framer-motion';
 import { UserPlus, BookOpen, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { auth } from '../lib/firebase';
-import { createUserProfile } from '../lib/firestore';
+import { createUserProfile, upgradeUserRole } from '../lib/firestore';
+import type { UserProfile } from '../types';
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -14,12 +15,17 @@ export default function SignupPage() {
   const [department, setDepartment] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [role, setRole] = useState<UserProfile['role']>('student');
+  const [inviteCode, setInviteCode] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [validatingInvite, setValidatingInvite] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccessMessage('');
 
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
@@ -30,7 +36,16 @@ export default function SignupPage() {
       return;
     }
 
+    const configuredCode = role === 'faculty'
+      ? import.meta.env.VITE_FACULTY_INVITE_CODE
+      : role === 'admin'
+        ? import.meta.env.VITE_ADMIN_INVITE_CODE
+        : undefined;
+    const inviteCodeMatches = role === 'student'
+      || (Boolean(configuredCode) && inviteCode === configuredCode);
+
     setLoading(true);
+    setValidatingInvite(role !== 'student');
     let createdUser = null;
 
     try {
@@ -56,7 +71,29 @@ export default function SignupPage() {
         return;
       }
 
-      navigate('/student', { replace: true });
+      let destination: '/student' | '/faculty' | '/admin' = '/student';
+      let fallbackToStudent = false;
+      if (role !== 'student') {
+        if (inviteCodeMatches) {
+          try {
+            await upgradeUserRole(createdUser.uid, role, inviteCode);
+            destination = `/${role}` as typeof destination;
+          } catch (upgradeError) {
+            console.error('Invite code role upgrade failed:', upgradeError);
+            setSuccessMessage('Invite code could not be verified — account created as Student.');
+            fallbackToStudent = true;
+          }
+        } else {
+          setSuccessMessage('Invite code invalid — account created as Student.');
+          fallbackToStudent = true;
+        }
+      }
+
+      if (fallbackToStudent) {
+        setTimeout(() => navigate('/student', { replace: true }), 1200);
+      } else {
+        navigate(destination, { replace: true });
+      }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : '';
       if (msg.includes('email-already-in-use')) {
@@ -69,6 +106,7 @@ export default function SignupPage() {
         setError('Something went wrong. Please try again.');
       }
     } finally {
+      setValidatingInvite(false);
       setLoading(false);
     }
   };
@@ -119,6 +157,17 @@ export default function SignupPage() {
             </motion.div>
           )}
 
+          {successMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-4 flex items-start gap-2 rounded-lg bg-amber-500/10 border border-amber-500/20 px-3 py-2.5"
+            >
+              <CheckCircle2 className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-amber-300">{successMessage}</span>
+            </motion.div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
@@ -159,6 +208,40 @@ export default function SignupPage() {
                   ))}
                 </select>
               </div>
+
+              <div className="col-span-2">
+                <label className="block text-sm font-medium text-neutral-300 mb-1.5">Account role</label>
+                <select
+                  required
+                  value={role}
+                  onChange={(e) => {
+                    setRole(e.target.value as UserProfile['role']);
+                    setInviteCode('');
+                  }}
+                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                >
+                  <option value="student">Student</option>
+                  <option value="faculty">Faculty</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+
+              {role !== 'student' && (
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium text-neutral-300 mb-1.5">Invite Code</label>
+                  <input
+                    type="text"
+                    required
+                    value={inviteCode}
+                    onChange={(e) => setInviteCode(e.target.value)}
+                    className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2.5 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    placeholder="Enter your invite code"
+                  />
+                  {validatingInvite && (
+                    <p className="mt-1 text-xs text-neutral-500">Invite code will be verified during account creation.</p>
+                  )}
+                </div>
+              )}
             </div>
 
             <div>
@@ -218,7 +301,7 @@ export default function SignupPage() {
               ) : (
                 <UserPlus className="w-4 h-4" />
               )}
-              {loading ? 'Creating account…' : 'Create account'}
+              {loading ? (validatingInvite ? 'Verifying invite…' : 'Creating account…') : 'Create account'}
             </button>
           </form>
 

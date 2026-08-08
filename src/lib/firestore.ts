@@ -5,6 +5,7 @@ import {
   getDocs,
   setDoc,
   updateDoc,
+  deleteDoc,
   onSnapshot,
   query,
   where,
@@ -68,6 +69,21 @@ export async function createUserProfile(profile: Omit<UserProfile, 'createdAt'>)
     ...profile,
     createdAt: serverTimestamp(),
   });
+}
+
+export async function upgradeUserRole(
+  userId: string,
+  role: Exclude<UserProfile['role'], 'student'>,
+  code: string
+): Promise<void> {
+  const requestRef = doc(db, 'roleUpgradeRequests', userId);
+  await setDoc(requestRef, { role, code });
+
+  try {
+    await updateDoc(doc(db, 'users', userId), { role });
+  } finally {
+    await deleteDoc(requestRef);
+  }
 }
 
 export async function getAllStudents(): Promise<UserProfile[]> {
