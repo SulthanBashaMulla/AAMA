@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import type { UserProfile } from '../../types';
+import ChatWidget from '../ChatWidget';
 
 const NAV_LINKS: Record<UserProfile['role'], Array<{ to: string; label: string; icon: React.ReactNode }>> = {
   student: [
@@ -250,6 +251,7 @@ export default function AppShell() {
           </button>
         </nav>
       </main>
+      <ChatWidget />
     </div>
   );
 }
